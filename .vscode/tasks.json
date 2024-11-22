@@ -1,0 +1,18 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "run-dev",
+            "type": "shell",
+            "command": "cd EvoComms.Web.App && npm run dev & dotnet watch",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/EvoComms.Web.App"
+            }
+        }
+    ]
+}
