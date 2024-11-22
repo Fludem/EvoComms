@@ -1,0 +1,19 @@
+﻿@using EvoComms.Core.DTOs
+@using EvoComms.Devices.ZKTeco.Settings
+<BaseSettingsModal TSettings="ZkModuleSettings" Title="ZK Module"
+                   Description="Configure the settings for your ZK Module" Settings="Settings"
+                   OnSave="@SaveSettings"
+                   @ref="BaseModal">
+    <AdditionalContent>
+        <div class="space-y-2">
+            <label for="TimeZoneSetting" class="text-sm font-medium">Timezone</label>
+            <select id="TimeZoneSetting" @bind="Settings.Timezone"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                @foreach (var timezone in TimeZoneDTO.GetTimeZones())
+                {
+                    <option value="@timezone.Value">@timezone.DisplayText</option>
+                }
+            </select>
+        </div>
+    </AdditionalContent>
+</BaseSettingsModal>

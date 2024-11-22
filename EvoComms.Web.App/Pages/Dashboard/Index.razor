@@ -1,0 +1,98 @@
+﻿@page "/"
+@using EvoComms.Core.Filesystem.Settings
+@using EvoComms.Devices.HanvonVF.Settings
+@using EvoComms.Devices.Timy.Settings
+@using EvoComms.Devices.ZKTeco.Settings
+@using EvoComms.Web.App.Pages.Dashboard.Components
+@inject TimySettingsProvider TimySettingsProvider
+@inject HanvonSettingsProvider HanvonSettingsProvider
+@inject ZkSettingsProvider ZkSettingsProvider
+<PageTitle>Dashboard</PageTitle>
+<div class="relative sm:h-full flex flex-col justify-start items-start">
+    <!-- Cards Grid -->
+    <div class="max-w-[100rem] w-full">
+        <div class="py-12 px-3 sm:py-5 w-full mx-auto">
+            <!-- Body -->
+            <div class="w-full">
+                <!-- Header -->
+                <div
+                    class="mb-5 flex flex-col justify-start items-start sm:flex-row gap-2 sm:gap-6 lg:gap-12 motion-ease-spring-bouncy motion-opacity-in-20 motion-translate-y-in-150 motion-duration-500">
+                    <h2 class="font-semibold text-xl text-gray-800">
+                        Dashboard
+                    </h2>
+                </div>
+                @if (_hanvonSettings != null && _timySettings != null)
+                {
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-6 lg:gap-y-10 w-full">
+                        <ModuleCard ModuleName="TimyAI Module" ModuleDescription="Configure TimyAI settings"
+                                    IsEnabled="@_timySettings.Enabled" OnClick="ShowTimySettings"
+                                    OnEnableToggle="ToggleTimyModule"/>
+                        <ModuleCard ModuleName="Hanvon Module" ModuleDescription="Configure Hanvon settings"
+                                    IsEnabled="@_hanvonSettings.Enabled" OnClick="ShowHanvonSettings"
+                                    OnEnableToggle="ToggleHanvonModule"/>
+                        <ModuleCard ModuleName="ZK Module" ModuleDescription="Configure ZK settings"
+                                    IsEnabled="@_zkSettings.Enabled" OnClick="ShowZkSettings"
+                                    OnEnableToggle="ToggleZkModule"/>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<TimySettingsModal @ref="_timySettingsModal"/>
+<HanvonSettingsModal @ref="_hanvonSettingsModal"/>
+<ZkSettingsModal @ref="_zkSettingsModal"/>
+
+@code {
+    private TimySettingsModal? _timySettingsModal;
+    private HanvonSettingsModal? _hanvonSettingsModal;
+    private ZkSettingsModal? _zkSettingsModal;
+    private ModuleSettings? _timySettings;
+    private ModuleSettings? _hanvonSettings;
+    private ZkModuleSettings? _zkSettings;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _timySettings = await TimySettingsProvider.LoadSettings();
+        _hanvonSettings = await HanvonSettingsProvider.LoadSettings();
+        _zkSettings = await ZkSettingsProvider.LoadSettings();
+    }
+
+    private void ShowTimySettings()
+    {
+        _timySettingsModal?.Show();
+    }
+
+    private void ShowZkSettings()
+    {
+        _zkSettingsModal?.Show();
+    }
+
+    private void ShowHanvonSettings()
+    {
+        _hanvonSettingsModal?.Show();
+    }
+
+    private async Task ToggleTimyModule(bool isEnabled)
+    {
+        _timySettings ??= await TimySettingsProvider.LoadSettings();
+        _timySettings.Enabled = isEnabled;
+        await TimySettingsProvider.SaveSettings(_timySettings);
+    }
+
+    private async Task ToggleZkModule(bool isEnabled)
+    {
+        _zkSettings ??= await ZkSettingsProvider.LoadSettings();
+        _zkSettings.Enabled = isEnabled;
+        await ZkSettingsProvider.SaveSettings(_zkSettings);
+    }
+
+    private async Task ToggleHanvonModule(bool isEnabled)
+    {
+        _hanvonSettings ??= await HanvonSettingsProvider.LoadSettings();
+        _hanvonSettings.Enabled = isEnabled;
+        await HanvonSettingsProvider.SaveSettings(_hanvonSettings);
+    }
+
+}

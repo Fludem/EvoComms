@@ -1,0 +1,8 @@
+{
+  "ListenPort": 9922,
+  "Enabled": true,
+  "OutputPath": "C:/Info",
+  "OutputType": 1,
+  "IsTemplateSharingEnabled": true,
+  "TimeZone": 0
+}

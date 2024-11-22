@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+>
+    <Fragment>
+        <StandardDirectory Id="ProgramMenuFolder">
+            <Directory Id="ApplicationProgramsFolder" Name="EvoComms"/>
+        </StandardDirectory>
+        <StandardDirectory Id="ProgramFiles64Folder">
+            <Directory Id="CompanyFolder" Name="ClockingSystems">
+                <Directory Id="INSTALLFOLDER" Name="EvoComms">
+                    <!-- Application binaries go here -->
+                </Directory>
+            </Directory>
+        </StandardDirectory>
+        <StandardDirectory Id="CommonAppDataFolder">
+            <Directory Id="CompanyDataFolder" Name="ClockingSystems">
+                <Directory Id="EvoCommsDataFolder" Name="EvoComms">
+                    <Directory Id="SettingsFolder" Name="Settings"/>
+                    <Directory Id="LogsFolder" Name="Logs"/>
+                    <Directory Id="DataFolder" Name="Data"/>
+                </Directory>
+            </Directory>
+        </StandardDirectory>
+    </Fragment>
+</Wix>

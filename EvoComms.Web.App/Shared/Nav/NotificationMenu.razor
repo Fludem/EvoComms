@@ -1,0 +1,225 @@
+﻿<!-- Notifications Button Icon -->
+<div class="hs-dropdown [--auto-close:inside] relative inline-flex">
+    <button id="hs-pro-dnnd" type="button"
+        class="relative inline-flex shrink-0 justify-center items-center gap-x-2 size-[38px] rounded-full text-white hover:bg-white/10 disabled:opacity-50 focus:outline-none focus:bg-white/10"
+        aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+        </svg>
+        <span class="flex absolute top-0 end-0 z-10 -mt-1.5 -me-1.5">
+            <span class="animate-ping absolute inline-flex size-full rounded-full bg-red-400 opacity-75"></span>
+            <span
+                class="relative min-w-[18px] min-h-[18px] inline-flex justify-center items-center text-[10px] bg-red-500 text-white rounded-full px-1">
+                2
+            </span>
+        </span>
+    </button>
+    <!-- End Notifications Button Icon -->
+
+    <!-- Notifications Dropdown -->
+    <div class="hs-dropdown-menu hs-dropdown-open:opacity-100 w-full sm:w-96 transition-[opacity,margin] duration opacity-0 hidden z-10 bg-white border-t border-gray-200 sm:border-t-0 sm:rounded-lg shadow-md sm:shadow-[0_10px_40px_10px_rgba(0,0,0,0.08)]"
+        role="menu" aria-orientation="vertical" aria-labelledby="hs-pro-dnnd">
+        <!-- Header -->
+        <div class="px-5 pt-3 flex justify-between items-center border-b border-gray-200">
+            <!-- Nav Tab -->
+            <nav class="flex  gap-x-1" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+                <button type="button"
+                    class="hs-tab-active:after:bg-gray-800 hs-tab-active:text-gray-800 px-2 py-1.5 mb-2 relative inline-flex justify-center items-center gap-x-2 text-nowrap  hover:bg-gray-100 text-gray-500 hover:text-gray-800 text-sm rounded-lg disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100 after:absolute after:-bottom-2 after:inset-x-2 after:z-10 after:h-0.5 after:pointer-events-none active"
+                    id="hs-pro-tabs-dnn-item-all" aria-selected="true" data-hs-tab="#hs-pro-tabs-dnn-all"
+                    aria-controls="hs-pro-tabs-dnn-all" role="tab">
+                    All
+                </button>
+                <button type="button"
+                    class="hs-tab-active:after:bg-gray-800 hs-tab-active:text-gray-800 px-2 py-1.5 mb-2 relative inline-flex justify-center items-center gap-x-2 text-nowrap  hover:bg-gray-100 text-gray-500 hover:text-gray-800 text-sm rounded-lg disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100 after:absolute after:-bottom-2 after:inset-x-2 after:z-10 after:h-0.5 after:pointer-events-none "
+                    id="hs-pro-tabs-dnn-item-archived" aria-selected="false" data-hs-tab="#hs-pro-tabs-dnn-archived"
+                    aria-controls="hs-pro-tabs-dnn-archived" role="tab">
+                    Archived
+                </button>
+            </nav>
+            <!-- End Nav Tab -->
+
+            <!-- Notifications Button Icon -->
+            <div class="hs-tooltip relative inline-block mb-3">
+                <a class="hs-tooltip-toggle size-7 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100"
+                    href="../../pro/dashboard/account-profile.html">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                </a>
+                <span
+                    class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 inline-block absolute invisible z-20 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg"
+                    role="tooltip">
+                    Preferences
+                </span>
+            </div>
+            <!-- End Notifications Button Icon -->
+        </div>
+        <!-- End Header -->
+
+        <!-- Tab Content -->
+        <div id="hs-pro-tabs-dnn-all" role="tabpanel" aria-labelledby="hs-pro-tabs-dnn-item-all">
+            <div
+                class="h-[480px] overflow-y-auto overflow-hidden [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
+                <ul class="divide-y divide-gray-200">
+                    <!-- List Item -->
+                    <li class="relative group w-full flex gap-x-5 text-start bg-gray-100 p-5">
+                        <div class="relative shrink-0">
+                            <img class="shrink-0 size-[38px] rounded-full"
+                                src="https://images.unsplash.com/photo-1659482634023-2c4fda99ac0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
+                                alt="Avatar">
+                            <span class="absolute top-4 -start-3 size-2 bg-blue-600 rounded-full"></span>
+                        </div>
+                        <div class="grow">
+                            <p class="text-xs text-gray-500">
+                                2 hours ago
+                            </p>
+
+                            <span class="block text-sm font-medium text-gray-800">
+                                Eilis Warner
+                            </span>
+                            <p class="text-sm text-gray-500">
+                                changed an issue from 'in Progress' to 'Review'
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="sm:group-hover:opacity-100 sm:opacity-0 sm:absolute sm:top-5 sm:end-5">
+                                <!-- Segment Button Group -->
+                                <div
+                                    class="inline-block p-0.5 bg-white border border-gray-200 rounded-lg shadow-sm transition ease-out">
+                                    <div class="flex items-center">
+                                        <div class="hs-tooltip relative inline-block">
+                                            <button type="button"
+                                                class="hs-tooltip-toggle size-7 flex shrink-0 justify-center items-center text-gray-500 hover:bg-gray-100 hover:text-gray-800 rounded disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100">
+                                                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <polyline points="9 11 12 14 22 4" />
+                                                    <path
+                                                        d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                                                </svg>
+                                                <svg class="shrink-0 size-4 hidden" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <rect width="18" height="18" x="3" y="3" rx="2" />
+                                                    <path d="M8 12h8" />
+                                                </svg>
+                                            </button>
+                                            <span
+                                                class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 inline-block absolute invisible z-20 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg"
+                                                role="tooltip">
+                                                Mark this notification as read
+                                            </span>
+                                        </div>
+                                        <div class="hs-tooltip relative inline-block">
+                                            <button type="button"
+                                                class="hs-tooltip-toggle size-7 flex shrink-0 justify-center items-center text-gray-500 hover:bg-gray-100 hover:text-gray-800 rounded disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100">
+                                                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <rect width="20" height="5" x="2" y="4" rx="2" />
+                                                    <path d="M4 9v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9" />
+                                                    <path d="M10 13h4" />
+                                                </svg>
+                                            </button>
+                                            <span
+                                                class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 inline-block absolute invisible z-20 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg"
+                                                role="tooltip">
+                                                Archive this notification
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Segment Button Group -->
+                            </div>
+                        </div>
+                    </li>
+                    <!-- End List Item -->
+                </ul>
+                <!-- End List Group -->
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center border-t border-gray-200">
+                <a class="p-4 flex justify-center items-center gap-x-2 text-sm text-gray-500 font-medium sm:rounded-b-lg hover:text-violet-600 focus:outline-none focus:text-violet-600"
+                    href="../../docs/index.html">
+                    Mark all as read
+                </a>
+            </div>
+            <!-- End Footer -->
+        </div>
+        <!-- End Tab Content -->
+
+        <!-- Tab Content -->
+        <div id="hs-pro-tabs-dnn-archived" class="hidden" role="tabpanel"
+            aria-labelledby="hs-pro-tabs-dnn-item-archived">
+            <!-- Empty State -->
+            <div class="p-5 min-h-[533px] flex flex-col justify-center items-center text-center">
+                <svg class="w-48 mx-auto mb-4" width="178" height="90" viewBox="0 0 178 90" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <rect x="27" y="50.5" width="124" height="39" rx="7.5" fill="currentColor" class="fill-white" />
+                    <rect x="27" y="50.5" width="124" height="39" rx="7.5" stroke="currentColor"
+                        class="stroke-gray-50" />
+                    <rect x="34.5" y="58" width="24" height="24" rx="4" fill="currentColor" class="fill-gray-50" />
+                    <rect x="66.5" y="61" width="60" height="6" rx="3" fill="currentColor" class="fill-gray-50" />
+                    <rect x="66.5" y="73" width="77" height="6" rx="3" fill="currentColor" class="fill-gray-50" />
+                    <rect x="19.5" y="28.5" width="139" height="39" rx="7.5" fill="currentColor" class="fill-white" />
+                    <rect x="19.5" y="28.5" width="139" height="39" rx="7.5" stroke="currentColor"
+                        class="stroke-gray-100" />
+                    <rect x="27" y="36" width="24" height="24" rx="4" fill="currentColor" class="fill-gray-100" />
+                    <rect x="59" y="39" width="60" height="6" rx="3" fill="currentColor" class="fill-gray-100" />
+                    <rect x="59" y="51" width="92" height="6" rx="3" fill="currentColor" class="fill-gray-100" />
+                    <g filter="url(#filter3)">
+                        <rect x="12" y="6" width="154" height="40" rx="8" fill="currentColor" class="fill-white"
+                            shape-rendering="crispEdges" />
+                        <rect x="12.5" y="6.5" width="153" height="39" rx="7.5" stroke="currentColor"
+                            class="stroke-gray-100" shape-rendering="crispEdges" />
+                        <rect x="20" y="14" width="24" height="24" rx="4" fill="currentColor" class="fill-gray-200" />
+                        <rect x="52" y="17" width="60" height="6" rx="3" fill="currentColor" class="fill-gray-200" />
+                        <rect x="52" y="29" width="106" height="6" rx="3" fill="currentColor" class="fill-gray-200" />
+                    </g>
+                    <defs>
+                        <filter id="filter3" x="0" y="0" width="178" height="64" filterUnits="userSpaceOnUse"
+                            color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                            <feColorMatrix in="SourceAlpha" type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feOffset dy="6" />
+                            <feGaussianBlur stdDeviation="6" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0" />
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1187_14810" />
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1187_14810"
+                                result="shape" />
+                        </filter>
+                    </defs>
+                </svg>
+
+                <div class="max-w-sm mx-auto">
+                    <p class="mt-2 font-medium text-gray-800">
+                        No archived notifications
+                    </p>
+                    <p class="mb-5 text-sm text-gray-500">
+                        No data here yet. We will notify you when there's an update.
+                    </p>
+                </div>
+
+                <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-50"
+                    href="@@href">
+                    Notifications settings
+                </a>
+            </div>
+            <!-- End Empty State -->
+        </div>
+        <!-- End Tab Content -->
+    </div>
+</div>

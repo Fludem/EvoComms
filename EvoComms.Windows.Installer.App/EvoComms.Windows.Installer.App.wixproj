@@ -1,0 +1,53 @@
+﻿<Project Sdk="WixToolset.Sdk/5.0.2">
+    <PropertyGroup>
+        <OutputName>EvoCommsInstaller</OutputName>
+        <OutputType>Package</OutputType>
+        <InstallerPlatform>x64</InstallerPlatform>
+        <PublishDir>C:\Users\m40a3\source\Build\EvoComms\Installer\$(Configuration)\publish\</PublishDir>
+        <Configuration>Release</Configuration>
+        <Platform>x64</Platform>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <Configurations>Release</Configurations>
+        <Platforms>x64</Platforms>
+        <Company>Clocking Systems</Company>
+        <Product>EvoComms</Product>
+        <AssemblyVersion>0.9.0.0</AssemblyVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="WixToolset.Util.wixext" Version="5.0.2"/>
+        <PackageReference Include="WixToolset.UI.wixext" Version="5.0.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EvoComms.Web.App\EvoComms.Web.App.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="EvoComms.url"/>
+        <Content Include="License.rtf"/>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <DefineConstants>
+            PublishedOutputPath=$(PublishDir);
+            DataSourcePath=$(PublishDir)Data\
+        </DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+        <OutputPath>C:\Users\m40a3\source\Build\Installer</OutputPath>
+        <DebugType>none</DebugType>
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+
+    <Target Name="EnsureDataFolderExists" BeforeTargets="BeforeBuild">
+        <MakeDir Directories="$(PublishDir)Data"/>
+    </Target>
+
+    <Target Name="PublishWebApp" BeforeTargets="BeforeBuild;Publish">
+        <MSBuild Projects="..\EvoComms.Web.App\EvoComms.Web.App.csproj"
+                 Targets="Publish"
+                 Properties="Configuration=$(Configuration);PublishDir=$(PublishDir)"/>
+    </Target>
+</Project>

@@ -1,0 +1,28 @@
+@import url('./fonts.css');
+@import url('./blazor.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-gray-100;
+    }
+
+    *:focus,
+    *:focus-visible,
+    *:focus-within {
+        @apply outline-0 ring-0 outline-none ring-offset-0;
+    }
+}
+
+@layer components {
+    .navbar-icon {
+        @apply text-gray-700 size-[17px] shrink-0;
+    }
+
+    .navbar-icon.active-route {
+        @apply text-blue-600;
+    }
+}

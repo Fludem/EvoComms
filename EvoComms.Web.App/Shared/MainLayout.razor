@@ -1,0 +1,15 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>EvoComms.Web.App</PageTitle>
+
+<div class="page">
+    <NavMenu />
+    <main id="content" class="pb-[40px] sm:pb-[64px]">
+        <div class="max-w-[105rem] p-2 sm:p-5 md:pt-5 lg:px-12 xl:px-16 mx-auto">
+            @Body
+        </div>
+    </main>
+    @* <AnnouncementBar /> *@
+    <SpotlightModal />
+    <Footer />
+</div>

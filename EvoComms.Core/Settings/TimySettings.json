@@ -1,0 +1,7 @@
+{
+  "ListenPort": 7788,
+  "Enabled": true,
+  "OutputPath": "C:/Info",
+  "OutputType": 1,
+  "IsTemplateSharingEnabled": true
+}

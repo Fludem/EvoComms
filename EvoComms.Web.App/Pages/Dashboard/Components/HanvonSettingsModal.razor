@@ -1,0 +1,9 @@
+@using EvoComms.Core.Filesystem.Settings
+<BaseSettingsModal TSettings="ModuleSettings" Title="Hanvon Module"
+                   Description="Configure the settings for your Hanvon Module" Settings="@_settings"
+                   OnSave="@SaveSettings"
+                   @ref="_baseModal">
+    <AdditionalContent>
+        <!-- Add any Hanvon-specific settings here -->
+    </AdditionalContent>
+</BaseSettingsModal>

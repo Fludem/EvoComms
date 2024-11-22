@@ -1,0 +1,71 @@
+@using EvoComms.Core.Models.Enums
+@typeparam TSettings where TSettings : EvoComms.Core.Filesystem.Settings.ModuleSettings
+
+@if (_isRendered)
+{
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+         @onclick="CloseOnOutsideClick">
+        <div id="settings-modal-card"
+             class="w-full max-w-xl bg-white rounded-lg shadow-xl motion-ease-spring-smooth motion-duration-300 @(_isVisible ? "motion-translate-y-in-[5%] motion-opacity-in-0 motion-scale-in-50" : "motion-translate-y-out-[5%] motion-opacity-out-0 motion-scale-out-50")"
+             @onclick:stopPropagation>
+            <div class="p-5 space-y-8">
+                <div class="inline-flex justify-between w-full">
+                    <div class="">
+                        <h2 class="text-2xl font-semibold text-gray-800">@Title</h2>
+                        <p class="text-sm text-gray-500">@Description</p>
+                    </div>
+                    <div
+                        class="p-2 justify-center items-center inline-flex size-7 bg-gray-100 rounded-xl translate-x-2 -translate-y-2 hover:bg-orange-200 group transition-colors duration-200 cursor-pointer"
+                        @onclick="CloseModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="size-4 text-gray-600 shrink-0 group-hover:text-gray-800 transition-colors duration-200">
+                            <path d="M18 6 6 18"/>
+                            <path d="m6 6 12 12"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="space-y-2">
+                        <label for="port" class="text-sm font-medium">Port</label>
+                        <input type="number" id="port" placeholder="Enter port number" @bind="Settings.ListenPort"
+                               class="w-full px-3 py-2 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-1 hover:cursor-text hover:pointer-events-auto hover:caret-slate-800 focus:ring-blue-600 caret-slate-900"/>
+                    </div>
+                    <div class="space-y-2">
+                        <label for="outputPath" class="text-sm font-medium">Output Path</label>
+                        <input type="text" id="outputPath" placeholder="Enter local output path"
+                               @bind="Settings.OutputPath"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"/>
+                    </div>
+                    <div class="space-y-2">
+                        <label for="outputType" class="text-sm font-medium">Output Type</label>
+                        <select id="outputType" @bind="Settings.OutputType"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                            @foreach (OutputType outputType in Enum.GetValues(typeof(OutputType)))
+                            {
+                                <option value="@outputType">@outputType</option>
+                            }
+                        </select>
+                    </div>
+                    @AdditionalContent
+                    <div class="flex items-center justify-between">
+                        <label for="enabled" class="text-sm font-medium">Enabled</label>
+                        <div class="relative inline-flex items-center cursor-pointer" @onclick="ToggleEnabled">
+                            <div
+                                class="@(Settings.Enabled ? "bg-blue-600" : "bg-orange-400") relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">
+                                <span
+                                    class="@(Settings.Enabled ? "translate-x-5" : "translate-x-0") inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="px-6 py-4 bg-gray-50 rounded-b-lg">
+                <button @onclick="SaveSettings"
+                        class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+}

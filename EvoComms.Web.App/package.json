@@ -1,0 +1,22 @@
+{
+  "name": "evocomms-web-app",
+  "version": "1.0.0",
+  "description": "EvoComms Web App",
+  "scripts": {
+    "build": "tailwindcss -i ./wwwroot/assets/css/app.css -o ./wwwroot/assets/css/app.min.css",
+    "dev": "tailwindcss -i ./wwwroot/assets/css/app.css -o ./wwwroot/assets/css/app.min.css --watch",
+    "dev:all": "concurrently \"npm run dev\" \"dotnet watch\""
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.1",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "tailwindcss-motion": "^0.3.0-beta"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.15",
+    "preline": "^2.5.1"
+  }
+}

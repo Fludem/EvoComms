@@ -1,0 +1,90 @@
+﻿<!-- User Menu -->
+<div
+    class="hs-dropdown inline-flex   [--strategy:absolute] [--auto-close:inside] [--placement:bottom-right] relative text-start">
+    <button id="hs-pro-snad" type="button"
+        class="inline-flex shrink-0 items-center gap-x-3 text-start rounded-full focus:outline-none"
+        aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+        <img class="shrink-0 size-[38px] rounded-full"
+            src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
+            alt="Avatar">
+    </button>
+
+    <!-- Account Dropdown -->
+    <div class="hs-dropdown-menu hs-dropdown-open:opacity-100 w-60 transition-[opacity,margin] duration opacity-0 hidden z-20 bg-white rounded-xl shadow-[0_10px_40px_10px_rgba(0,0,0,0.08)]"
+        role="menu" aria-orientation="vertical" aria-labelledby="hs-pro-snad">
+        <div class="p-1 border-b border-gray-200">
+            <a class="py-2 px-3 flex items-center gap-x-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100"
+                href="../../pro/dashboard/user-profile-my-profile.html">
+                <img class="shrink-0 size-8 rounded-full"
+                    src="https://images.unsplash.com/photo-1659482633369-9fe69af50bfb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
+                    alt="Avatar">
+
+                <div class="grow">
+                    <span class="text-sm font-semibold text-gray-800">
+                        James Collison
+                    </span>
+                    <p class="text-xs text-gray-500">
+                        Preline@HS
+                    </p>
+                </div>
+            </a>
+        </div>
+        <div class="p-1">
+            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100"
+                href="#">
+                <svg class="shrink-0 mt-0.5 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect width="20" height="14" x="2" y="5" rx="2" />
+                    <line x1="2" x2="22" y1="10" y2="10" />
+                </svg>
+                Billing
+            </a>
+            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100"
+                href="#">
+                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                        d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+                Settings
+            </a>
+        </div>
+        <div class="px-4 py-3.5 border-y border-gray-200">
+            <!-- Switch/Toggle -->
+            <div class="flex justify-between items-center">
+                <label for="hs-pro-snaddm" class="text-sm text-gray-800">Dark mode</label>
+                <div class="relative inline-block">
+                    <input data-hs-theme-switch type="checkbox" id="hs-pro-snaddm"
+                        class="relative w-11 h-6 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-600 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-blue-600 checked:border-blue-600 focus:checked:border-blue-600
+                        before:inline-block before:size-5 before:bg-white checked:before:bg-white before:translate-x-0
+                        checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0
+                        before:transition before:ease-in-out before:duration-200">
+                </div>
+            </div>
+            <!-- End Switch/Toggle -->
+        </div>
+        <div class="p-1">
+            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100"
+                href="#">
+                Customization
+                <div class="ms-auto">
+                    <span
+                        class="ms-auto inline-flex items-center gap-1.5 py-px px-1.5 rounded text-[10px] leading-4 font-medium bg-gray-100 text-gray-800">
+                        New
+                    </span>
+                </div>
+            </a>
+            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-100"
+                href="#">
+                Sign out
+            </a>
+        </div>
+        <div class="p-1 border-t border-gray-200">
+        </div>
+    </div>
+    <!-- End Account Dropdown -->
+</div>
+<!-- End User Menu -->

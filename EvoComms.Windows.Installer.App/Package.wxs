@@ -1,0 +1,134 @@
+﻿<Wix xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
+     xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Package Name="EvoComms" Manufacturer="Clocking Systems" Version="0.8.2.0"
+             UpgradeCode="D55E922A-8235-44F1-8B65-C5B91C5DFA77">
+        <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)"/>
+        <MediaTemplate EmbedCab="yes"/>
+        <Feature Id="Main">
+            <ComponentGroupRef Id="EvoCommsComponents"/>
+            <ComponentRef Id="SettingsFolderPermissions"/>
+            <ComponentRef Id="DataFolderPermissions"/>
+            <ComponentRef Id="DatabaseFile"/>
+            <ComponentRef Id="LaunchWebAppUrlShortcut"/>
+            <ComponentRef Id="ApplicationShortcuts"/>
+            <ComponentRef Id="EvoCommsService"/>
+            <ComponentRef Id="LogsFolderPermissions"/>
+        </Feature>
+
+        <!-- Add WixUI dialog set -->
+        <ui:WixUI Id="WixUI_Minimal"/>
+        <WixVariable Id="WixUILicenseRtf" Value="License.rtf"/>
+
+        <!-- Component for setting folder permissions -->
+        <Component Id="SettingsFolderPermissions" Directory="SettingsFolder"
+                   Guid="0822BA9B-99F1-4F9F-8191-9DDD6685B261" Permanent="no">
+            <CreateFolder>
+                <util:PermissionEx User="Users" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_LOCALSERVICE]" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_NETWORKSERVICE]" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_LOCALSYSTEM]" GenericAll="yes"/>
+            </CreateFolder>
+            <RemoveFolder On="uninstall"/>
+        </Component>
+
+        <!-- Component for setting Data folder permissions -->
+        <Component Id="DataFolderPermissions" Directory="DataFolder"
+                   Guid="17D64928-4DBA-4829-8A08-A0567684ADB6" Permanent="no">
+            <CreateFolder>
+                <util:PermissionEx User="Users" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_LOCALSERVICE]" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_NETWORKSERVICE]" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_LOCALSYSTEM]" GenericAll="yes"/>
+            </CreateFolder>
+            <RemoveFolder On="uninstall"/>
+        </Component>
+        <Component Id="LaunchWebAppUrlShortcut" Directory="ApplicationProgramsFolder"
+                   Guid="6DEB21E3-98B3-49BB-84E0-E188C318E834">
+            <File Id="LaunchWebAppUrl"
+                  Source="EvoComms.url"
+                  Name="Launch EvoComms UI.url"/>
+            <RegistryValue Root="HKCU"
+                           Key="Software\ClockingSystems\EvoComms\WebAppShortcut"
+                           Name="Installed"
+                           Type="integer"
+                           Value="1"
+                           KeyPath="yes"/>
+        </Component>
+        <!-- Component for creating shortcuts -->
+        <Component Id="ApplicationShortcuts" Directory="ApplicationProgramsFolder"
+                   Guid="A7D37803-5DCB-42F0-8A88-178CAC76508B">
+            <!-- Updated existing shortcut -->
+            <Shortcut Id="StartServiceShortcut"
+                      Name="EvoComms Debug Console"
+                      Description="EvoComms(Debug Console)"
+                      Target="[INSTALLFOLDER]EvoComms.Web.App.exe"
+                      WorkingDirectory="INSTALLFOLDER"/>
+
+            <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+            <RegistryValue Root="HKCU" Key="Software\ClockingSystems\EvoComms\WebApp" Name="installed"
+                           Type="integer" Value="1"
+                           KeyPath="yes"/>
+        </Component>
+
+        <!-- Add this component inside the Package element -->
+        <Component Id="DatabaseFile" Directory="DataFolder"
+                   Guid="B8F9E123-4567-89AB-CDEF-012345678901">
+            <File Id="DatabaseFile"
+                  Source="$(var.PublishedOutputPath)Data\EvoComms.sqlite"
+                  KeyPath="yes"/>
+        </Component>
+
+        <!-- Update the service component -->
+        <Component Id="EvoCommsService" Directory="INSTALLFOLDER"
+                   Guid="00263B32-9592-4940-804F-C4E8AC4E9448">
+            <File Id="EvoCommsServiceEXE"
+                  Name="EvoComms.Web.App.exe"
+                  Source="$(var.PublishedOutputPath)EvoComms.Web.App.exe"
+                  KeyPath="yes"/>
+
+            <ServiceInstall Id="ServiceInstaller"
+                            Type="ownProcess"
+                            Name="EvoCommsService"
+                            DisplayName="EvoComms Web Service"
+                            Description="Web service for EvoComms application"
+                            Start="auto"
+                            Account="LocalSystem"
+                            ErrorControl="normal"
+                            Vital="yes"/>
+
+            <ServiceControl Id="StartService"
+                            Start="install"
+                            Stop="both"
+                            Remove="uninstall"
+                            Name="EvoCommsService"
+                            Wait="yes"/>
+        </Component>
+
+        <!-- Add this component to your Feature element -->
+        <Component Id="LogsFolderPermissions" Directory="LogsFolder"
+                   Guid="2DD6AC0E-D84E-48D4-B3ED-FE80255C863E">
+            <CreateFolder>
+                <util:PermissionEx User="Users" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_LOCALSERVICE]" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_NETWORKSERVICE]" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_LOCALSYSTEM]" GenericAll="yes"/>
+            </CreateFolder>
+        </Component>
+
+    </Package>
+
+
+    <Fragment>
+        <ComponentGroup Id="EvoCommsComponents" Directory="INSTALLFOLDER">
+            <Files Include="$(var.PublishedOutputPath)**">
+                <Exclude Files="$(var.PublishedOutputPath)Data\**"/>
+                <Exclude Files="$(var.PublishedOutputPath)EvoComms.Web.App.exe"/>
+                <Exclude Files="$(var.PublishedOutputPath)Settings\**"/>
+                <Exclude Files="$(var.PublishedOutputPath)package-lock.json"/>
+                <Exclude Files="$(var.PublishedOutputPath)package.json"/>
+            </Files>
+
+        </ComponentGroup>
+    </Fragment>
+</Wix>
