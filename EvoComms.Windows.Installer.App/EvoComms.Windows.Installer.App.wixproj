@@ -1,6 +1,6 @@
 ﻿<Project Sdk="WixToolset.Sdk/5.0.2">
     <PropertyGroup>
-        <OutputName>EvoCommsInstaller</OutputName>
+        <OutputName>EvoComms_$(AssemblyVersion)_Installer</OutputName>
         <OutputType>Package</OutputType>
         <InstallerPlatform>x64</InstallerPlatform>
         <PublishDir>C:\Users\m40a3\source\Build\EvoComms\Installer\$(Configuration)\publish\</PublishDir>
@@ -9,14 +9,15 @@
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
         <Configurations>Release</Configurations>
         <Platforms>x64</Platforms>
-        <Company>Clocking Systems</Company>
+        <Company>Clocking Systems Ltd</Company>
         <Product>EvoComms</Product>
-        <AssemblyVersion>0.9.0.0</AssemblyVersion>
+        <AssemblyVersion>0.9.1.0</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="WixToolset.Util.wixext" Version="5.0.2"/>
         <PackageReference Include="WixToolset.UI.wixext" Version="5.0.2"/>
+        <PackageReference Include="WixToolset.Firewall.wixext" Version="5.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
