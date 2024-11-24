@@ -90,6 +90,8 @@
         <EmbeddedResource Include="wwwroot\assets\css\blazor.css"/>
         <Content Remove="wwwroot\assets\css\fonts.css"/>
         <EmbeddedResource Include="wwwroot\assets\css\fonts.css"/>
+        <Content Remove="wwwroot\assets\vendor\preline\dist\preline.js" />
+        <EmbeddedResource Include="wwwroot\assets\vendor\preline\dist\preline.js" />
     </ItemGroup>
     <PropertyGroup>
         <ExcludeFilesFromBuildOutput>true</ExcludeFilesFromBuildOutput>
