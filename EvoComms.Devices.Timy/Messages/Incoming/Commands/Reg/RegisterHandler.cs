@@ -7,7 +7,7 @@ using SuperSocket.WebSocket.Server;
 
 namespace EvoComms.Devices.Timy.Messages.Incoming.Commands.Reg;
 
-[CommandHandler("reg")]
+[TimyCommandHandler("reg")]
 public class RegisterHandler(
     ILogger<RegisterHandler> logger,
     RecordService recordService,
