@@ -45,9 +45,10 @@ public static class CertificateManager
             DateTimeOffset.Now.AddYears(10));
 
         /**
-         * @TODO: Need to think about security implications of this.
+         * @TODO: Need to better configure kestrel to support this.
+         * Doesn't serve much purpose yet.
          */
-        return new X509Certificate2(certificate.Export(X509ContentType.Pfx),
+        return new X509Certificate2(certificate.Export(X509ContentType.Pfx, CertificatePassword),
             CertificatePassword,
             X509KeyStorageFlags.MachineKeySet |
             X509KeyStorageFlags.PersistKeySet |
