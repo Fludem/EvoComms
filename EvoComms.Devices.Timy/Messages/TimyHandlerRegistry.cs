@@ -26,8 +26,8 @@ public class TimyHandlerRegistry
         foreach (var handler in handlers)
         {
             var handlerType = handler.GetType();
-            var commandAttr = handlerType.GetCustomAttribute<CommandHandlerAttribute>();
-            var responseAttr = handlerType.GetCustomAttribute<ResponseHandlerAttribute>();
+            var commandAttr = handlerType.GetCustomAttribute<TimyCommandHandlerAttribute>();
+            var responseAttr = handlerType.GetCustomAttribute<TimyResponseHandlerAttribute>();
 
             if (commandAttr != null)
             {
