@@ -56,6 +56,14 @@
             </CreateFolder>
 
         </Component>
+
+        <Component Id="DatabaseFile" Directory="DataFolder"
+                   Guid="B8F9E123-4567-89AB-CDEF-012345678901">
+            <File Id="DatabaseFile"
+                  Source="$(var.PublishedOutputPath)Data\EvoComms.sqlite"
+                  KeyPath="yes"/>
+        </Component>
+        
         <CustomAction Id="InstallHttpsCert"
                       FileRef="EvoCommsServiceEXE"
                       ExeCommand="--install-cert"
