@@ -24,8 +24,8 @@ public static class TimyServiceExtensions
             .Where(t => !t.IsAbstract &&
                         !t.IsInterface &&
                         typeof(IMessageHandler).IsAssignableFrom(t) &&
-                        (t.GetCustomAttribute<CommandHandlerAttribute>() != null ||
-                         t.GetCustomAttribute<ResponseHandlerAttribute>() != null));
+                        (t.GetCustomAttribute<TimyCommandHandlerAttribute>() != null ||
+                         t.GetCustomAttribute<TimyResponseHandlerAttribute>() != null));
 
         foreach (var handlerType in handlerTypes) services.AddSingleton(typeof(IMessageHandler), handlerType);
 
