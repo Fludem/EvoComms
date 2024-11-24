@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using Com.FirstSolver.Splash;
 
-namespace EvoComms.Devices.HanvonVF.Encryption;
+namespace EvoComms.Devices.HanvonVF.SM4Encryption;
 
 // ReSharper disable once InconsistentNaming
 public static class SM2KeyFactory
