@@ -20,6 +20,8 @@ public static class HanvonServiceExtensions
 
         foreach (var handlerType in handlerTypes) services.AddSingleton(typeof(IHanvonMessageHandler), handlerType);
 
+        services.AddSingleton<HanvonListenerManager>();
+        services.AddSingleton<HanvonHandlerRegistry>();
         services.AddSingleton<HanvonSettingsProvider>();
         return services;
     }
