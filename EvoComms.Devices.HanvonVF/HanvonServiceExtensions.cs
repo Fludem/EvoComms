@@ -1,3 +1,7 @@
+using System.Reflection;
+using EvoComms.Devices.HanvonVF.HanvonServer;
+using EvoComms.Devices.HanvonVF.Messages.Handlers;
+using EvoComms.Devices.HanvonVF.Messages.Handlers.Commands.Attributes;
 using EvoComms.Devices.HanvonVF.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
