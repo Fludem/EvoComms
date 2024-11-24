@@ -20,15 +20,19 @@ namespace EvoComms.Core.Services
         IClockingWriterFactory clockingWriterFactory,
         AppDbContext dbContext)
     {
+        private readonly IClockingWriterFactory _clockingWriterFactory = clockingWriterFactory;
+        private readonly AppDbContext _dbContext = dbContext;
+        private readonly ILogger<RecordService> _logger = logger;
+
         public async Task<List<Clocking>> ProcessClockings(
             List<Record> records, string deviceSerialNumber, ModuleSettings settings)
         {
             List<Clocking> processedClockings = new();
-            IClockingFileWriter writer = clockingWriterFactory.GetWriter(settings.OutputType);
+            IClockingFileWriter writer = _clockingWriterFactory.GetWriter(settings.OutputType);
 
             foreach (Record record in records)
             {
-                logger.LogInformation($"Processing Clocking Record: {record.FormatClocking()}");
+                _logger.LogInformation($"Processing Clocking Record: {record.FormatClocking()}");
                 Clocking clocking = await AddClockingToDb(record);
                 processedClockings.Add(clocking);
                 DateTime dateTime =
@@ -43,14 +47,14 @@ namespace EvoComms.Core.Services
 
         private async Task<ClockingMachine> GetClockingMachine(string serialNumber)
         {
-            ClockingMachine? clockingMachine = await dbContext.ClockingMachines
+            ClockingMachine? clockingMachine = await _dbContext.ClockingMachines
                 .FirstOrDefaultAsync(cm => cm.SerialNumber == serialNumber);
 
             if (clockingMachine == null)
             {
                 clockingMachine = new ClockingMachine { Name = serialNumber, SerialNumber = serialNumber };
-                await dbContext.ClockingMachines.AddAsync(clockingMachine);
-                await dbContext.SaveChangesAsync();
+                await _dbContext.ClockingMachines.AddAsync(clockingMachine);
+                await _dbContext.SaveChangesAsync();
             }
 
             return clockingMachine;
@@ -67,20 +71,20 @@ namespace EvoComms.Core.Services
                 ClockedAt = DateTime.ParseExact(record.Time, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
                 ReceivedAt = DateTime.Now
             };
-            await dbContext.Clockings.AddAsync(clocking);
-            await dbContext.SaveChangesAsync();
+            await _dbContext.Clockings.AddAsync(clocking);
+            await _dbContext.SaveChangesAsync();
             return clocking;
         }
 
         private async Task<Employee> GetEmployee(Record record)
         {
             Employee? employee =
-                await dbContext.Employees.FirstOrDefaultAsync(emp => emp.ClockingId == record.EmployeeId);
+                await _dbContext.Employees.FirstOrDefaultAsync(emp => emp.ClockingId == record.EmployeeId);
             if (employee == null)
             {
                 employee = new Employee { Name = record.EmployeeName, ClockingId = record.EmployeeId };
-                await dbContext.Employees.AddAsync(employee);
-                await dbContext.SaveChangesAsync();
+                await _dbContext.Employees.AddAsync(employee);
+                await _dbContext.SaveChangesAsync();
             }
 
             return employee;
