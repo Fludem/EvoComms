@@ -15,12 +15,10 @@ using Microsoft.Extensions.Logging;
 
 namespace EvoComms.Core.Services
 {
-    /**
-     * @TODO: We're using dispoable DB Context's rather than getting it from service contaienr, maybe bad practice.
-     */
     public class RecordService(
         ILogger<RecordService> logger,
-        IClockingWriterFactory clockingWriterFactory)
+        IClockingWriterFactory clockingWriterFactory,
+        AppDbContext dbContext)
     {
         public async Task<List<Clocking>> ProcessClockings(
             List<Record> records, string deviceSerialNumber, ModuleSettings settings)
@@ -45,7 +43,6 @@ namespace EvoComms.Core.Services
 
         private async Task<ClockingMachine> GetClockingMachine(string serialNumber)
         {
-            await using AppDbContext dbContext = new();
             ClockingMachine? clockingMachine = await dbContext.ClockingMachines
                 .FirstOrDefaultAsync(cm => cm.SerialNumber == serialNumber);
 
@@ -63,7 +60,6 @@ namespace EvoComms.Core.Services
 
         private async Task<Clocking> AddClockingToDb(Record record)
         {
-            await using AppDbContext dbContext = new();
             ClockingMachine clockingMachine = await GetClockingMachine(record.DeviceSerialNumber ?? "Unknown");
             Employee employee = await GetEmployee(record);
             Clocking clocking = new()
@@ -80,7 +76,6 @@ namespace EvoComms.Core.Services
 
         private async Task<Employee> GetEmployee(Record record)
         {
-            await using AppDbContext dbContext = new();
             Employee? employee =
                 await dbContext.Employees.FirstOrDefaultAsync(emp => emp.ClockingId == record.EmployeeId);
             if (employee == null)

@@ -11,6 +11,7 @@ namespace EvoComms.Core.Services.Extensions
     {
         public static IServiceCollection AddFileWriters(this IServiceCollection services)
         {
+            services.AddScoped<RecordService>();
             services.AddSingleton<InfoTimeWriter>();
             services.AddSingleton<BioTimeWriter>();
             services.AddSingleton<InTimeWriter>();

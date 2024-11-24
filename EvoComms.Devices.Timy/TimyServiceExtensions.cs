@@ -1,5 +1,4 @@
 using System.Reflection;
-using EvoComms.Core.Services;
 using EvoComms.Devices.Timy.Messages;
 using EvoComms.Devices.Timy.Messages.Attributes;
 using EvoComms.Devices.Timy.Settings;
@@ -13,7 +12,6 @@ public static class TimyServiceExtensions
     {
         // Register core services
         services.AddSingleton<TimySettingsProvider>();
-        services.AddSingleton<RecordService>();
         services.AddSingleton<TimyHandlerRegistry>();
         services.AddSingleton<TimyMessageProcessor>();
         services.AddSingleton<TimyListenerFactory>();
