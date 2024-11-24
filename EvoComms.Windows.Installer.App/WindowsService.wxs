@@ -1,0 +1,31 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Fragment>
+        <ComponentGroup Id="WindowsService">
+            <Component Id="EvoCommsService"
+                       Directory="INSTALLFOLDER"
+                       Guid="00263B32-9592-4940-804F-C4E8AC4E9448">
+                <File Id="EvoCommsServiceEXE"
+                      Name="EvoComms.Web.App.exe"
+                      Source="$(var.PublishedOutputPath)EvoComms.Web.App.exe"
+                      KeyPath="yes"/>
+
+                <ServiceInstall Id="ServiceInstaller"
+                                Type="ownProcess"
+                                Name="EvoCommsService"
+                                DisplayName="EvoComms Service"
+                                Description="This service is responsible for running Evocomms in the background. EvoComms handles connections from clocking machines and allows the data to be imported into your time and attendance software."
+                                Start="auto"
+                                Account="LocalSystem"
+                                ErrorControl="normal"
+                                Vital="yes"/>
+
+                <ServiceControl Id="StartService"
+                                Start="install"
+                                Stop="both"
+                                Remove="uninstall"
+                                Name="EvoCommsService"
+                                Wait="yes"/>
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>

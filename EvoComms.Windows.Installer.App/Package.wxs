@@ -1,19 +1,20 @@
 ﻿<Wix xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
      xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
      xmlns="http://wixtoolset.org/schemas/v4/wxs">
-    <Package Name="EvoComms" Manufacturer="Clocking Systems" Version="0.8.2.0"
+    <Package Name="EvoComms" Manufacturer="Clocking Systems" Version="0.9.0.0"
              UpgradeCode="D55E922A-8235-44F1-8B65-C5B91C5DFA77">
         <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)"/>
         <MediaTemplate EmbedCab="yes"/>
         <Feature Id="Main">
             <ComponentGroupRef Id="EvoCommsComponents"/>
+            <ComponentGroupRef Id="Shortcuts"/>
+            <ComponentGroupRef Id="WindowsService"/>
+            <ComponentGroupRef Id="FirewallRules"/>
             <ComponentRef Id="SettingsFolderPermissions"/>
             <ComponentRef Id="DataFolderPermissions"/>
             <ComponentRef Id="DatabaseFile"/>
-            <ComponentRef Id="LaunchWebAppUrlShortcut"/>
-            <ComponentRef Id="ApplicationShortcuts"/>
-            <ComponentRef Id="EvoCommsService"/>
             <ComponentRef Id="LogsFolderPermissions"/>
+            <ComponentRef Id="HttpsSetup"/>
         </Feature>
 
         <!-- Add WixUI dialog set -->
@@ -43,69 +44,28 @@
             </CreateFolder>
             <RemoveFolder On="uninstall"/>
         </Component>
-        <Component Id="LaunchWebAppUrlShortcut" Directory="ApplicationProgramsFolder"
-                   Guid="6DEB21E3-98B3-49BB-84E0-E188C318E834">
-            <File Id="LaunchWebAppUrl"
-                  Source="EvoComms.url"
-                  Name="Launch EvoComms UI.url"/>
-            <RegistryValue Root="HKCU"
-                           Key="Software\ClockingSystems\EvoComms\WebAppShortcut"
-                           Name="Installed"
-                           Type="integer"
-                           Value="1"
-                           KeyPath="yes"/>
+
+        <Component Id="HttpsSetup"
+                   Directory="CertFolder"
+                   Guid="7C7BE23D-17A2-45F8-8CDD-6D8EC9F4D775">
+            <CreateFolder>
+                <util:PermissionEx User="Users" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_LOCALSERVICE]" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_NETWORKSERVICE]" GenericAll="yes"/>
+                <util:PermissionEx User="[WIX_ACCOUNT_LOCALSYSTEM]" GenericAll="yes"/>
+            </CreateFolder>
+
         </Component>
-        <!-- Component for creating shortcuts -->
-        <Component Id="ApplicationShortcuts" Directory="ApplicationProgramsFolder"
-                   Guid="A7D37803-5DCB-42F0-8A88-178CAC76508B">
-            <!-- Updated existing shortcut -->
-            <Shortcut Id="StartServiceShortcut"
-                      Name="EvoComms Debug Console"
-                      Description="EvoComms(Debug Console)"
-                      Target="[INSTALLFOLDER]EvoComms.Web.App.exe"
-                      WorkingDirectory="INSTALLFOLDER"/>
+        <CustomAction Id="InstallHttpsCert"
+                      FileRef="EvoCommsServiceEXE"
+                      ExeCommand="--install-cert"
+                      Execute="deferred"
+                      Impersonate="no"
+                      Return="check"/>
+        <InstallExecuteSequence>
+            <Custom Action="InstallHttpsCert" After="InstallFiles"/>
+        </InstallExecuteSequence>
 
-            <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
-            <RegistryValue Root="HKCU" Key="Software\ClockingSystems\EvoComms\WebApp" Name="installed"
-                           Type="integer" Value="1"
-                           KeyPath="yes"/>
-        </Component>
-
-        <!-- Add this component inside the Package element -->
-        <Component Id="DatabaseFile" Directory="DataFolder"
-                   Guid="B8F9E123-4567-89AB-CDEF-012345678901">
-            <File Id="DatabaseFile"
-                  Source="$(var.PublishedOutputPath)Data\EvoComms.sqlite"
-                  KeyPath="yes"/>
-        </Component>
-
-        <!-- Update the service component -->
-        <Component Id="EvoCommsService" Directory="INSTALLFOLDER"
-                   Guid="00263B32-9592-4940-804F-C4E8AC4E9448">
-            <File Id="EvoCommsServiceEXE"
-                  Name="EvoComms.Web.App.exe"
-                  Source="$(var.PublishedOutputPath)EvoComms.Web.App.exe"
-                  KeyPath="yes"/>
-
-            <ServiceInstall Id="ServiceInstaller"
-                            Type="ownProcess"
-                            Name="EvoCommsService"
-                            DisplayName="EvoComms Web Service"
-                            Description="Web service for EvoComms application"
-                            Start="auto"
-                            Account="LocalSystem"
-                            ErrorControl="normal"
-                            Vital="yes"/>
-
-            <ServiceControl Id="StartService"
-                            Start="install"
-                            Stop="both"
-                            Remove="uninstall"
-                            Name="EvoCommsService"
-                            Wait="yes"/>
-        </Component>
-
-        <!-- Add this component to your Feature element -->
         <Component Id="LogsFolderPermissions" Directory="LogsFolder"
                    Guid="2DD6AC0E-D84E-48D4-B3ED-FE80255C863E">
             <CreateFolder>
@@ -115,7 +75,6 @@
                 <util:PermissionEx User="[WIX_ACCOUNT_LOCALSYSTEM]" GenericAll="yes"/>
             </CreateFolder>
         </Component>
-
     </Package>
 
 

@@ -1,0 +1,18 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Fragment>
+        <ComponentGroup Id="Shortcuts">
+            <Component Id="ApplicationShortcuts" Directory="ApplicationProgramsFolder"
+                       Guid="A7D37803-5DCB-42F0-8A88-178CAC76508B">
+                <Shortcut Id="StartServiceShortcut"
+                          Name="EvoComms Debug Console"
+                          Description="EvoComms(Debug Console)"
+                          Target="[INSTALLFOLDER]EvoComms.Web.App.exe"
+                          WorkingDirectory="INSTALLFOLDER"/>
+                <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+                <RegistryValue Root="HKCU" Key="Software\ClockingSystems\EvoComms\WebApp" Name="installed"
+                               Type="integer" Value="1" KeyPath="yes"/>
+            </Component>
+
+        </ComponentGroup>
+    </Fragment>
+</Wix>

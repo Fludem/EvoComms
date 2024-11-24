@@ -18,6 +18,7 @@
                     <Directory Id="SettingsFolder" Name="Settings"/>
                     <Directory Id="LogsFolder" Name="Logs"/>
                     <Directory Id="DataFolder" Name="Data"/>
+                    <Directory Id="CertFolder" Name="Certstore"/>
                 </Directory>
             </Directory>
         </StandardDirectory>

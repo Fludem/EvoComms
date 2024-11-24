@@ -1,0 +1,26 @@
+<Wix xmlns:firewall="http://wixtoolset.org/schemas/v4/wxs/firewall" xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Fragment>
+        <ComponentGroup Id="FirewallRules">
+            <Component Id="TimyPort" Guid="6459B7B6-F59E-419D-944D-7861E2A438AF">
+                <firewall:FirewallException Id="TimyPortException"
+                                            Name="EvoComms Timy Module"
+                                            Description="This exception allows incoming connections on port 7788 to support incoming connections from TimyAI Face Readers."
+                                            Protocol="tcp"
+                                            Port="7788"
+                                            Profile="all"
+                                            Scope="any"
+                                            Enabled="yes"/>
+            </Component>
+            <Component Id="HanvonPort" Guid="2C580192-1146-4822-810D-EF934CB50B38">
+                <firewall:FirewallException Id="HanvonPortException"
+                                            Name="EvoComms Hanvon Module"
+                                            Description="This exception allows incoming connections on port 9922 to support incoming connections from Hanvon Face Readers."
+                                            Protocol="tcp"
+                                            Port="7788"
+                                            Profile="all"
+                                            Scope="any"
+                                            Enabled="yes"/>
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>
