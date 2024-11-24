@@ -17,10 +17,9 @@ namespace EvoComms.Core.Services
 {
     public class RecordService(
         ILogger<RecordService> logger,
-        IClockingWriterFactory clockingWriterFactory)
+        IClockingWriterFactory clockingWriterFactory,
+        AppDbContext dbContext)
     {
-        private readonly ILogger _logger = logger;
-
         public async Task<List<Clocking>> ProcessClockings(
             List<Record> records, string deviceSerialNumber, ModuleSettings settings)
         {
@@ -29,7 +28,7 @@ namespace EvoComms.Core.Services
 
             foreach (Record record in records)
             {
-                _logger.LogInformation($"Processing Clocking Record: {record.FormatClocking()}");
+                logger.LogInformation($"Processing Clocking Record: {record.FormatClocking()}");
                 Clocking clocking = await AddClockingToDb(record);
                 processedClockings.Add(clocking);
                 DateTime dateTime =
