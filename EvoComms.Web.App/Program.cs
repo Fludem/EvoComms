@@ -37,6 +37,7 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
+
     var certificate = HttpsHelper.EnsureHttpsCertificate(programDataPath);
     builder.WebHost.ConfigureKestrel(serverOptions =>
     {
@@ -78,8 +79,6 @@ try
     builder.Logging.AddCustomLogging(logsPath, builder.Services);
     var app = builder.Build();
 
-    var logger = LogManager.GetCurrentClassLogger();
-
     // If the application isn't running as dev we specify an exception handler
     // And enable HSTS.
     // HSTS Doesn't serve much purpose at the moment as we don't have an SSL Certificate
@@ -90,6 +89,7 @@ try
     }
     else
     {
+        Console.WriteLine("Running in Debug Console Mode.");
         // Checks if EvoComms has been launched as a console application.
         // If the EvoComms service is already running, it logs an error message 
         // and exits the application to prevent port conflicts, as the service
@@ -101,7 +101,7 @@ try
                 {
                     if (serviceController.Status == ServiceControllerStatus.Running)
                     {
-                        logger.Error(
+                        Console.WriteLine(
                             "EvoComms is already running as a service. Please first stop the service before running Debug Console.");
                         return; // Exit the application
                     }
@@ -110,26 +110,25 @@ try
             catch (InvalidOperationException)
             {
                 // Log that the service does not exist 
-                logger.Info("The EvoCommsService does not exist. Continuing in console mode.");
+                Console.WriteLine("The EvoCommsService does not exist. Continuing in console mode.");
             }
     }
 
 
     // Https Redirection doesn't yet work as no SSL Certificate has been created
-    app.UseHttpsRedirection();
     app.UseStaticFiles();
     // Map Controllers is required to map the previously registered ZKTecoController
     app.MapControllers();
     app.UseRouting();
     app.MapBlazorHub();
     app.MapFallbackToPage("/_Host");
-    logger.Info("Starting application...");
+    Console.WriteLine("Starting application...");
     app.Run();
 }
 catch (Exception exception)
 {
-    var logger = LogManager.GetCurrentClassLogger();
-    logger.Error(exception, "Stopped program because of exception");
+    Console.WriteLine(
+        $"Error booting application: {exception.Message} - {exception.InnerException} - {exception.StackTrace}");
     throw;
 }
 finally
