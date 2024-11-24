@@ -7,7 +7,7 @@ using SuperSocket.WebSocket.Server;
 
 namespace EvoComms.Devices.Timy.Messages.Incoming.Commands.SendLogs;
 
-[CommandHandler("sendlog")]
+[TimyCommandHandler("sendlog")]
 public class SendLogHandler : BaseMessageHandler
 {
     public SendLogHandler(
