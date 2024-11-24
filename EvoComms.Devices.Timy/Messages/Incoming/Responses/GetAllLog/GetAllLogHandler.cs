@@ -7,7 +7,7 @@ using SuperSocket.WebSocket.Server;
 
 namespace EvoComms.Devices.Timy.Messages.Incoming.Responses.GetAllLog;
 
-[ResponseHandler("getalllog")]
+[TimyResponseHandler("getalllog")]
 public class GetAllLogHandler : BaseMessageHandler
 {
     public GetAllLogHandler(ILogger<GetAllLogHandler> logger,
