@@ -10,7 +10,7 @@ public partial class BaseSettingsModal<TSettings> : ComponentBase where TSetting
     private bool _isVisible;
     [Parameter] public string Title { get; set; } = "";
     [Parameter] public string Description { get; set; } = "";
-    [Parameter] public TSettings? Settings { get; set; }
+    [Parameter] public required TSettings Settings { get; set; }
     [Parameter] public EventCallback<TSettings> OnSave { get; set; }
     [Parameter] public required RenderFragment AdditionalContent { get; set; }
 
