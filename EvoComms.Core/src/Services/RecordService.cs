@@ -17,8 +17,7 @@ namespace EvoComms.Core.Services
 {
     public class RecordService(
         ILogger<RecordService> logger,
-        IClockingWriterFactory clockingWriterFactory,
-        AppDbContext dbContext)
+        IClockingWriterFactory clockingWriterFactory)
     {
         private readonly ILogger _logger = logger;
 
