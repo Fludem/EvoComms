@@ -17,7 +17,7 @@ public class GetAllLogResponse : BaseIncomingResponse
     [JsonPropertyName("to")] public int EndDate { get; set; }
 
 
-    public List<Record> record { get; set; }
+    public required List<Record> Records { get; set; }
 
     public string Response()
     {
@@ -28,14 +28,14 @@ public class GetAllLogResponse : BaseIncomingResponse
     [OnDeserialized]
     internal void OnDeserializedMethod(StreamingContext context)
     {
-        foreach (var clocking in record) clocking.DeviceSerialNumber = SerialNumber;
+        foreach (var clocking in Records) clocking.DeviceSerialNumber = SerialNumber;
     }
 
     public List<Record> GetRecords()
     {
         foreach (var clocking in
-                 record) clocking.DeviceSerialNumber = SerialNumber; // Assign SN from GetAllLogResponse to each Record
+                 Records) clocking.DeviceSerialNumber = SerialNumber; // Assign SN from GetAllLogResponse to each Record
 
-        return record;
+        return Records;
     }
 }
