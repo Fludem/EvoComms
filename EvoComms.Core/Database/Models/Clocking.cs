@@ -10,7 +10,7 @@ namespace EvoComms.Core.Database.Models
         public int ClockingMachineId { get; set; }
         public int EmployeeId { get; set; }
         public ClockingMachine ClockingMachine { get; set; } = null!;
-        public Employee Employee { get; set; }
+        public required Employee Employee { get; set; }
         public DateTime ClockedAt { get; set; }
         public DateTime ReceivedAt { get; set; }
     }
