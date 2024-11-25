@@ -1,8 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using EvoComms.Devices.Timy.Messages.Shared;
 using Newtonsoft.Json;
 
-namespace EvoComms.Devices.Timy.Messages.Incoming.Requests;
+namespace EvoComms.Devices.Timy.Messages.TerminalToServer;
 
 public class SendUser : BaseDeviceRequest
 {

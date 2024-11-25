@@ -3,13 +3,14 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using EvoComms.Core.Services;
 using EvoComms.Devices.Timy.Messages.Attributes;
-using EvoComms.Devices.Timy.Messages.Outgoing.Requests;
+using EvoComms.Devices.Timy.Messages.ServerToTerminal;
+using EvoComms.Devices.Timy.Messages.Shared;
 using EvoComms.Devices.Timy.Models;
 using EvoComms.Devices.Timy.Settings;
 using Microsoft.Extensions.Logging;
 using SuperSocket.WebSocket.Server;
 
-namespace EvoComms.Devices.Timy.Messages.Incoming.Requests;
+namespace EvoComms.Devices.Timy.Messages.TerminalToServer;
 
 public class RegRequest : BaseDeviceRequest
 {
@@ -42,31 +43,31 @@ public class RegisterHandler(
     ILogger<RegisterHandler> logger,
     RecordService recordService,
     TimySettingsProvider timySettingsProvider)
-    : BaseITimyMessageHandler(logger, recordService, timySettingsProvider)
+    : BaseTimyMessageHandler(logger, recordService, timySettingsProvider)
 {
     public override async Task Handle(WebSocketSession session, string message)
     {
-        _logger.LogInformation(message);
+        Logger.LogInformation(message);
         try
         {
             var regCommand = JsonSerializer.Deserialize<RegRequest>(message) ??
                              throw new ArgumentNullException(
                                  "JsonSerializer.Deserialize<RegCommand>(message)");
-            _logger.LogInformation(
+            Logger.LogInformation(
                 $"Session Started With Device. ID: {session.SessionID} IP: {session.RemoteEndPoint} Serial: {regCommand.SerialNumber}");
-            _logger.LogInformation(
+            Logger.LogInformation(
                 $"Timy: New Device Connection. Serial - {regCommand.SerialNumber} | Current Time On Terminal - {regCommand.DeviceInfo.DeviceTime} | New Records: {regCommand.DeviceInfo.NewClockingCount} | Total Records: {regCommand.DeviceInfo.TotalClockingCount}");
             await session.SendAsync(regCommand.Response());
         }
         catch (Exception e)
         {
-            _logger.LogError("Timy: Error Deserializing Message: " + e.Message);
+            Logger.LogError("Timy: Error Deserializing Message: " + e.Message);
         }
     }
 
     public async Task GetLogs(RegRequest regRequest, WebSocketSession session, DateTime fromDate, DateTime toDate)
     {
-        _logger.LogInformation($"Getting All Logs From Terminal {regRequest.SerialNumber}");
+        Logger.LogInformation($"Getting All Logs From Terminal {regRequest.SerialNumber}");
         var alllog = JsonSerializer.Serialize(new GetAllLogCommand(fromDate, toDate));
         await session.SendAsync(alllog);
     }
