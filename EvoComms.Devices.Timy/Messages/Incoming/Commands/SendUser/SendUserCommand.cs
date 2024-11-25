@@ -17,7 +17,15 @@ public class SendUserCommand : IIncomingCommand
 
     [JsonPropertyName("admin")] public int Admin { get; set; }
 
-    [JsonPropertyName("record")] public string Record { get; set; }
+
+    /// <remarks>
+    ///     TODO: Replace with proper typed model for polymorphic record objects.
+    ///     Will be refactored to use proper inheritance/polymorphic model to handle
+    ///     different Employee types. It takes sometimes at the object is structured
+    ///     differently if they are fingerprint, or face, or card etc.
+    /// </remarks>
+    [JsonPropertyName("record")]
+    public string? Employees { get; set; }
 
     public string Response()
     {
