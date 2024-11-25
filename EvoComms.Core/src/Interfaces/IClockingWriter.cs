@@ -1,4 +1,4 @@
-﻿using Anviz.SDK.Responses;
+﻿using EvoComms.Core.Models;
 
 namespace EvoComms.Core.Interfaces
 {
