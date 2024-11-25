@@ -12,7 +12,7 @@ public class RegisterHandler(
     ILogger<RegisterHandler> logger,
     RecordService recordService,
     TimySettingsProvider timySettingsProvider)
-    : BaseMessageHandler(logger, recordService, timySettingsProvider)
+    : BaseITimyMessageHandler(logger, recordService, timySettingsProvider)
 {
     public override async Task Handle(WebSocketSession session, string message)
     {
@@ -23,9 +23,9 @@ public class RegisterHandler(
                              throw new ArgumentNullException(
                                  "JsonSerializer.Deserialize<RegCommand>(message)");
             _logger.LogInformation(
-                $"Session Started With Device. ID: {session.SessionID} IP: {session.RemoteEndPoint} Serial: {regCommand.sn}");
+                $"Session Started With Device. ID: {session.SessionID} IP: {session.RemoteEndPoint} Serial: {regCommand.SerialNumber}");
             _logger.LogInformation(
-                $"Timy: New Device Connection. Serial - {regCommand.sn} | Current Time On Terminal - {regCommand.deviceInfo.DeviceTime} | New Records: {regCommand.deviceInfo.NewClockingCount} | Total Records: {regCommand.deviceInfo.TotalClockingCount}");
+                $"Timy: New Device Connection. Serial - {regCommand.SerialNumber} | Current Time On Terminal - {regCommand.DeviceInfo.DeviceTime} | New Records: {regCommand.DeviceInfo.NewClockingCount} | Total Records: {regCommand.DeviceInfo.TotalClockingCount}");
             await session.SendAsync(regCommand.Response());
             // if (_isFirst)
             // {

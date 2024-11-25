@@ -1,16 +1,14 @@
 ﻿using System.Text.Json.Serialization;
 using EvoComms.Core.Models;
-using EvoComms.Devices.Timy.Messages.Incoming.Commands.Interfaces;
 
 namespace EvoComms.Devices.Timy.Messages.Incoming.Commands.SendLogs;
 
-public class SendLogCommand : IIncomingCommand
+public class SendLogCommand : BaseCommand
 {
-    [JsonPropertyName("cmd")] public string Command { get; set; }
-    [JsonPropertyName("sn")] public string SerialNumber { get; set; }
+    [JsonPropertyName("sn")] public required string SerialNumber { get; set; } = "1";
     [JsonPropertyName("count")] public int Count { get; set; }
     [JsonPropertyName("logindex")] public int PaginationIndex { get; set; }
-    [JsonPropertyName("record")] public List<Record> Records { get; set; }
+    [JsonPropertyName("record")] public required List<Record> Records { get; set; }
 
     public string Response()
     {
