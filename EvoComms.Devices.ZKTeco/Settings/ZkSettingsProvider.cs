@@ -13,7 +13,7 @@ public class ZkSettingsProvider : ModuleSettingsProvider<ZkModuleSettings>, IZkS
 
     public int GetTimezone()
     {
-        return _settings.Timezone;
+        return _settings?.Timezone ?? 0;
     }
 
     protected override ZkModuleSettings CreateDefaultSettings()
