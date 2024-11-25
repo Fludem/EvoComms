@@ -65,7 +65,6 @@ try
     // Blazor Services
     builder.Services.AddRazorPages();
     builder.Services.AddServerSideBlazor();
-    builder.Services.AddBlazorContextMenu();
     // End of Blazer Services
 
     // Adding Timy service that runs websockets in background
