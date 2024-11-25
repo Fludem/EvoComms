@@ -2,22 +2,21 @@ using System.Reflection;
 using Com.FirstSolver.Splash;
 using EvoComms.Devices.HanvonVF.Messages.Handlers.Commands.Attributes;
 using Microsoft.Extensions.Logging;
-using Mina.Handler.Demux;
 
 namespace EvoComms.Devices.HanvonVF.Messages.Handlers;
 
 public class HanvonHandlerRegistry
 {
-    private readonly Dictionary<string, IMessageHandler> _commandHandlers = new();
+    private readonly Dictionary<string, IHanvonMessageHandler> _commandHandlers = new();
     private readonly ILogger<HanvonHandlerRegistry> _logger;
 
-    public HanvonHandlerRegistry(ILogger<HanvonHandlerRegistry> logger, IEnumerable<IMessageHandler> handlers)
+    public HanvonHandlerRegistry(ILogger<HanvonHandlerRegistry> logger, IEnumerable<IHanvonMessageHandler> handlers)
     {
         _logger = logger;
         RegisterHandlers(handlers);
     }
 
-    private void RegisterHandlers(IEnumerable<IMessageHandler> handlers)
+    private void RegisterHandlers(IEnumerable<IHanvonMessageHandler> handlers)
     {
         foreach (var handler in handlers)
         {
@@ -30,7 +29,7 @@ public class HanvonHandlerRegistry
         }
     }
 
-    public IMessageHandler? GetHandler(string incomingMessage)
+    public IHanvonMessageHandler? GetHandler(string incomingMessage)
     {
         var incomingMessageObject = incomingMessage.FromJsonTo<COMMAND_PCIR_TYPE>();
         return _commandHandlers.GetValueOrDefault(incomingMessageObject.COMMAND);
