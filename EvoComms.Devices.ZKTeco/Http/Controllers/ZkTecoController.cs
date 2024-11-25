@@ -213,7 +213,7 @@ public class ZkTecoController : ControllerBase
         var settings = await _zkSettingsProvider.LoadSettings();
         _logger.LogInformation($"Writing Clocking Files. Root Output Path: {settings.OutputPath}");
         var record = records.First();
-        var serialNumber = record.DeviceSerialNumber ?? "1";
+        var serialNumber = record.DeviceSerial ?? "1";
         await _recordService.ProcessClockings(records, serialNumber, settings);
         //
         // foreach (var record in records)
@@ -260,7 +260,7 @@ public class ZkTecoController : ControllerBase
                 var clocking = new Record
                 {
                     EmployeeId = empId,
-                    DeviceSerialNumber = "1",
+                    DeviceSerial = "1",
                     EmployeeName = "ZK",
                     Time = time
                 };
