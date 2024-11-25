@@ -12,7 +12,7 @@ namespace EvoComms.Core.Models
     public class Record
     {
         [JsonPropertyName("enrollid")] public int EmployeeId { get; set; }
-        [JsonPropertyName("name")] public string EmployeeName { get; set; }
+        [JsonPropertyName("name")] public string EmployeeName { get; set; } = "NA";
         [JsonPropertyName("time")] public string Time { get; set; }
         public int mode { get; set; }
         public int inout { get; set; }
@@ -58,12 +58,13 @@ namespace EvoComms.Core.Models
             IEnumerable<string> lines = usbTextData.Split('\n')
                 .Skip(1)
                 .Where(line => !string.IsNullOrWhiteSpace(line));
-            
+
             foreach (string line in lines)
             {
                 Record currentRecord = await FromTimyUsbLine(line);
                 records.Add(currentRecord);
             }
+
             logger.Info($"Parsed {records.Count} records from USB");
             return records;
         }
