@@ -37,7 +37,7 @@ namespace EvoComms.Core.Filesystem.Writers.InTime
                     {
                         logger.LogInformation(
                             $"Writing record clocking from device: {clocking.ClockingMachine.SerialNumber} with ID: {clocking.Id}");
-                        string clockingFileEntry = await ConvertClockingToFileEntry(clocking);
+                        string clockingFileEntry = ConvertClockingToFileEntry(clocking);
                         await writer.WriteAsync(clockingFileEntry);
                     }
 
@@ -67,7 +67,7 @@ namespace EvoComms.Core.Filesystem.Writers.InTime
                     // Write file start
                     await writer.WriteAsync(fileStart);
                     logger.LogInformation($"Writing clocking to file - Emp ID: {employeeId}. Time: {clockingTime}");
-                    string clockingFileEntry = await MakeFileLine(employeeId, clockingTime);
+                    string clockingFileEntry = MakeFileLine(employeeId, clockingTime);
                     await writer.WriteAsync(clockingFileEntry);
                     await writer.WriteAsync(fileEnd);
                 }
@@ -80,7 +80,7 @@ namespace EvoComms.Core.Filesystem.Writers.InTime
             }
         }
 
-        private async Task<string> MakeFileLine(int employeeId, DateTime clockTime)
+        private string MakeFileLine(int employeeId, DateTime clockTime)
         {
             string userid = employeeId.ToString().PadLeft(8, '0');
             string dayMonthYear = clockTime.ToString("ddMMyy", CultureInfo.InvariantCulture);
@@ -88,7 +88,7 @@ namespace EvoComms.Core.Filesystem.Writers.InTime
             return $" {userid} MO {dayMonthYear}  {formattedTime}{Environment.NewLine}";
         }
 
-        private async Task<string> ConvertClockingToFileEntry(Clocking clocking)
+        private string ConvertClockingToFileEntry(Clocking clocking)
         {
             string userid = clocking.Employee.ClockingId.ToString().PadLeft(8, '0');
             string dayMonthYear = clocking.ClockedAt.ToString("ddMMyy", CultureInfo.InvariantCulture);
