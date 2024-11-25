@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+#pragma warning disable CS0414 // Field is assigned but its value is never used
+
 namespace EvoComms.Devices.ZKTeco.Http.Controllers;
 
 [ApiController]
@@ -15,19 +17,19 @@ namespace EvoComms.Devices.ZKTeco.Http.Controllers;
 public class ZkTecoController : ControllerBase
 {
     private readonly IClockingWriterFactory _clockingWriterFactory;
-    private readonly ILogger<ZkTecoController> _logger;
-    private readonly RecordService _recordService;
-    private readonly ZkSettingsProvider _zkSettingsProvider;
-    private readonly string Delay = "15";
-    private readonly string Encrypt = "0";
+    private readonly string _delay = "15";
+    private readonly string _encrypt = "0";
 
-    private readonly string ErrorDelay = "3";
-    private readonly bool GetAllLogs = true;
-    private readonly string RealTime = "1";
-    private readonly string TimeZone = "0";
-    private readonly string TransFlag = "1111000000";
-    private readonly string TransInterval = "1";
-    private readonly string TransTimes = "00:00;14:05";
+    private readonly string _errorDelay = "3";
+    private readonly bool _getAllLogs = true;
+    private readonly ILogger<ZkTecoController> _logger;
+    private readonly string _realTime = "1";
+    private readonly RecordService _recordService;
+    private readonly string _timeZone = "0";
+    private readonly string _transFlag = "1111000000";
+    private readonly string _transInterval = "1";
+    private readonly string _transTimes = "00:00;14:05";
+    private readonly ZkSettingsProvider _zkSettingsProvider;
 
     public ZkTecoController(ILogger<ZkTecoController> logger, IClockingWriterFactory clockingWriterFactory,
         ZkSettingsProvider zkSettingsProvider, RecordService recordService
@@ -66,14 +68,14 @@ public class ZkTecoController : ControllerBase
             response.AppendLine("AttStamp=1");
             response.AppendLine("OpStamp=1");
             response.AppendLine("PhotoStamp=1");
-            response.AppendLine($"ErrorDelay={ErrorDelay}");
-            response.AppendLine($"Delay={Delay}");
-            response.AppendLine($"TransTimes={TransTimes}");
-            response.AppendLine($"TransInterval={TransInterval}");
-            response.AppendLine($"TransFlag={TransFlag}");
-            response.AppendLine($"Realtime={RealTime}");
-            response.AppendLine($"Encrypt={Encrypt}");
-            response.AppendLine($"TimeZone={TimeZone}");
+            response.AppendLine($"ErrorDelay={_errorDelay}");
+            response.AppendLine($"Delay={_delay}");
+            response.AppendLine($"TransTimes={_transTimes}");
+            response.AppendLine($"TransInterval={_transInterval}");
+            response.AppendLine($"TransFlag={_transFlag}");
+            response.AppendLine($"Realtime={_realTime}");
+            response.AppendLine($"Encrypt={_encrypt}");
+            response.AppendLine($"TimeZone={_timeZone}");
             _logger.LogInformation($"Response Body: {response}");
             return Content(response.ToString());
         }
@@ -123,7 +125,7 @@ public class ZkTecoController : ControllerBase
         try
         {
             // Extract error code from "Return=X" where X is the code
-            var returnIndex = response.IndexOf("Return=");
+            var returnIndex = response.IndexOf("Return=", StringComparison.Ordinal);
             if (returnIndex >= 0)
             {
                 var codeStart = returnIndex + 7; // length of "Return="
@@ -166,7 +168,7 @@ public class ZkTecoController : ControllerBase
                 // }
             }
 
-            if (data.Contains("OPERLOG")) await ProcessOperationLog(data);
+            if (data.Contains("OPERLOG")) ProcessOperationLog(data);
 
             return Content("OK");
         }
@@ -189,7 +191,7 @@ public class ZkTecoController : ControllerBase
                 return BadRequest("Serial number is required");
             }
 
-            if (!GetAllLogs) return Content("OK");
+            if (!_getAllLogs) return Content("OK");
             _logger.LogTrace($"Device {serialNumber} requested commands - sending attendance logs request");
 
             // Based on the source code, the format is "C:ID1:DATA QUERY ATTLOG"
@@ -275,13 +277,13 @@ public class ZkTecoController : ControllerBase
         }
     }
 
-    private async Task ProcessOperationLog(string data)
+    private void ProcessOperationLog(string data)
     {
         // Implement operation log processing if needed
         _logger.LogInformation("Operation log received");
     }
 
-    private async Task SaveAttendanceRecord(AttendanceRecord attendanceRecord)
+    private void SaveAttendanceRecord(AttendanceRecord attendanceRecord)
     {
         _logger.LogInformation(
             $"Attendance record received for user {attendanceRecord.UserId} at {attendanceRecord.DateTime}");
