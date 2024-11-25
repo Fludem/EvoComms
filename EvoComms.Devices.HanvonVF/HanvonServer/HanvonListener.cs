@@ -29,9 +29,10 @@ public class HanvonListener : IAsyncDisposable
         _logger = logger;
         _handlerRegistry = handlerRegistry;
         _tcpServer.FilterChain.AddLast("codec", new ProtocolCodecFilter(new FaceReaderProtocolCodecFactory()));
+        MapEventHandlers();
     }
 
-    public int Port { get; }
+    private int Port { get; }
     public bool IsListening => _tcpServer.Active;
 
     public async ValueTask DisposeAsync()
@@ -58,7 +59,7 @@ public class HanvonListener : IAsyncDisposable
 
     private void MapEventHandlers()
     {
-        _tcpServer.SessionOpened += (o, ea) =>
+        _tcpServer.SessionOpened += (_, ea) =>
         {
             FaceReaderProtocolCodecFactory.EnablePassiveEncryption(ea.Session, true, _sm2UserInformation);
             _logger.LogInformation(
@@ -66,12 +67,20 @@ public class HanvonListener : IAsyncDisposable
         };
 
         _tcpServer.MessageReceived +=
-            async (o, ea) =>
+            async (_, ea) =>
             {
                 var messageString = (string)ea.Message;
                 _logger.LogInformation(
                     $"Message Received from {ea.Session.RemoteEndPoint} with Session ID {ea.Session.Id}: {messageString}");
-                _handlerRegistry.GetHandler(messageString).HandleMessage(
+                var handler = _handlerRegistry.GetHandler(messageString);
+                if (handler == null)
+                {
+                    _logger.LogWarning(
+                        $"No handler found for message: {messageString}. Received from {ea.Session.RemoteEndPoint} on session: {ea.Session.Id}");
+                    return;
+                }
+
+                await handler.HandleMessageAsync(
                     ea.Session,
                     ea.Message);
             };
