@@ -7,7 +7,7 @@ namespace EvoComms.Devices.HanvonVF.Messages.Handlers.Commands.GetRequest;
 
 public class GetRequestCommand : BaseHanvonCommand
 {
-    [JsonProperty("PARAM")] public GetRequestParams Parameters { get; set; }
+    [JsonProperty("PARAM")] public required GetRequestParams Parameters { get; set; }
 }
 
 [HanvonCommandHandler("GetRequest")]
