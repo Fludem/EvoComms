@@ -5,7 +5,7 @@ namespace EvoComms.Core.DTOs
     public class TimeZoneOption
     {
         public int Offset { get; set; }
-        public List<string> Locations { get; set; }
+        public required List<string> Locations { get; set; }
         public string DisplayText => $"UTC{(Offset >= 0 ? "+" : "")}{Offset}: {string.Join(", ", Locations)}";
         public string Value => Offset.ToString();
     }
@@ -28,11 +28,7 @@ namespace EvoComms.Core.DTOs
                     Offset = -9,
                     Locations = new List<string> { "Alaska", "French Polynesia (part)", "Gambier Islands" }
                 },
-                new()
-                {
-                    Offset = -8,
-                    Locations = new List<string> { "Pacific Time (US & Canada)", "Baja California" }
-                },
+                new() { Offset = -8, Locations = new List<string> { "Pacific Time (US & Canada)", "Baja California" } },
                 new()
                 {
                     Offset = -7,
@@ -91,10 +87,7 @@ namespace EvoComms.Core.DTOs
                 new() { Offset = 5, Locations = new List<string> { "Karachi", "Tashkent", "Yekaterinburg" } },
                 new() { Offset = 6, Locations = new List<string> { "Dhaka", "Almaty", "Novosibirsk" } },
                 new() { Offset = 7, Locations = new List<string> { "Bangkok", "Jakarta", "Ho Chi Minh City" } },
-                new()
-                {
-                    Offset = 8, Locations = new List<string> { "Beijing", "Hong Kong", "Singapore", "Manila" }
-                },
+                new() { Offset = 8, Locations = new List<string> { "Beijing", "Hong Kong", "Singapore", "Manila" } },
                 new() { Offset = 9, Locations = new List<string> { "Tokyo", "Seoul", "Osaka", "Sapporo" } },
                 new() { Offset = 10, Locations = new List<string> { "Sydney", "Melbourne", "Brisbane" } },
                 new() { Offset = 11, Locations = new List<string> { "Noumea", "Solomon Islands", "Magadan" } },
