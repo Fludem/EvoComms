@@ -37,7 +37,6 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
-
     var certificate = HttpsHelper.EnsureHttpsCertificate(programDataPath);
     builder.WebHost.ConfigureKestrel(serverOptions =>
     {
