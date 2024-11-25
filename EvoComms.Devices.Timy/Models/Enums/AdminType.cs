@@ -1,4 +1,4 @@
-namespace EvoComms.Devices.Timy.Enums;
+namespace EvoComms.Devices.Timy.Models.Enums;
 
 public enum AdminType
 {
