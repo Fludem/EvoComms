@@ -13,12 +13,12 @@ namespace EvoComms.Core.Models
     {
         [JsonPropertyName("enrollid")] public int EmployeeId { get; set; }
         [JsonPropertyName("name")] public string EmployeeName { get; set; } = "NA";
-        [JsonPropertyName("time")] public string Time { get; set; }
+        [JsonPropertyName("time")] public required string Time { get; set; }
         public int mode { get; set; }
         public int inout { get; set; }
         public int @event { get; set; }
 
-        [JsonIgnore] public string? DeviceSerialNumber { get; set; }
+        [JsonIgnore] public string? DeviceSerial { get; set; }
 
         public string FormatClocking()
         {
@@ -32,7 +32,7 @@ namespace EvoComms.Core.Models
             return dateTime.ToString("dd/MM/yyyy  HH:mm:ss");
         }
 
-        public static Task<Record> FromTimyUsbLine(string line)
+        private static Task<Record> FromTimyUsbLine(string line)
         {
             string[] parts = line.Split('\t');
             Logger logger = LogManager.GetCurrentClassLogger();
@@ -47,7 +47,7 @@ namespace EvoComms.Core.Models
                 mode = 1,
                 inout = 1,
                 @event = 1,
-                DeviceSerialNumber = "USB"
+                DeviceSerial = "USB"
             });
         }
 
