@@ -6,22 +6,22 @@ namespace EvoComms.Devices.Timy.Messages;
 
 public class TimyHandlerRegistry
 {
-    private readonly Dictionary<string, IMessageHandler> _commandHandlers;
+    private readonly Dictionary<string, ITimyMessageHandler> _commandHandlers;
     private readonly ILogger<TimyHandlerRegistry> _logger;
-    private readonly Dictionary<string, IMessageHandler> _responseHandlers;
+    private readonly Dictionary<string, ITimyMessageHandler> _responseHandlers;
 
     public TimyHandlerRegistry(
         ILogger<TimyHandlerRegistry> logger,
-        IEnumerable<IMessageHandler> handlers)
+        IEnumerable<ITimyMessageHandler> handlers)
     {
         _logger = logger;
-        _commandHandlers = new Dictionary<string, IMessageHandler>();
-        _responseHandlers = new Dictionary<string, IMessageHandler>();
+        _commandHandlers = new Dictionary<string, ITimyMessageHandler>();
+        _responseHandlers = new Dictionary<string, ITimyMessageHandler>();
 
         RegisterHandlers(handlers);
     }
 
-    private void RegisterHandlers(IEnumerable<IMessageHandler> handlers)
+    private void RegisterHandlers(IEnumerable<ITimyMessageHandler> handlers)
     {
         foreach (var handler in handlers)
         {
@@ -42,13 +42,13 @@ public class TimyHandlerRegistry
         }
     }
 
-    public IMessageHandler? GetCommandHandler(string command)
+    public ITimyMessageHandler? GetCommandHandler(string command)
     {
         _commandHandlers.TryGetValue(command, out var handler);
         return handler;
     }
 
-    public IMessageHandler? GetResponseHandler(string responseType)
+    public ITimyMessageHandler? GetResponseHandler(string responseType)
     {
         _responseHandlers.TryGetValue(responseType, out var handler);
         return handler;
