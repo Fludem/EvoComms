@@ -4,7 +4,7 @@ using EvoComms.Devices.Timy.Messages.Attributes;
 using EvoComms.Devices.Timy.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EvoComms.Devices.Timy;
+namespace EvoComms.Devices.Timy.ServiceExtensions;
 
 public static class TimyServiceExtensions
 {
@@ -17,15 +17,15 @@ public static class TimyServiceExtensions
         services.AddSingleton<TimyListenerFactory>();
 
         // Auto-register all handlers from the assembly
-        var handlerTypes = typeof(IMessageHandler).Assembly
+        var handlerTypes = typeof(ITimyMessageHandler).Assembly
             .GetTypes()
             .Where(t => !t.IsAbstract &&
                         !t.IsInterface &&
-                        typeof(IMessageHandler).IsAssignableFrom(t) &&
+                        typeof(ITimyMessageHandler).IsAssignableFrom(t) &&
                         (t.GetCustomAttribute<TimyCommandHandlerAttribute>() != null ||
                          t.GetCustomAttribute<TimyResponseHandlerAttribute>() != null));
 
-        foreach (var handlerType in handlerTypes) services.AddSingleton(typeof(IMessageHandler), handlerType);
+        foreach (var handlerType in handlerTypes) services.AddSingleton(typeof(ITimyMessageHandler), handlerType);
 
         return services;
     }
