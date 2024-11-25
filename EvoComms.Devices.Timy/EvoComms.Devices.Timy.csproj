@@ -15,7 +15,7 @@
         <DebugSymbols>false</DebugSymbols>
         <DebugType>none</DebugType>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2"/>
@@ -26,10 +26,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EvoComms.Core\EvoComms.Core.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Services\"/>
     </ItemGroup>
 
 </Project>
