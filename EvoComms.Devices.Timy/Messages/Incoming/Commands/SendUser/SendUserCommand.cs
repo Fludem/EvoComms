@@ -1,17 +1,14 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
-using EvoComms.Devices.Timy.Messages.Incoming.Commands.Interfaces;
-using EvoComms.Devices.Timy.Messages.Outgoing.Responses.SendUser;
 using Newtonsoft.Json;
 
 namespace EvoComms.Devices.Timy.Messages.Incoming.Commands.SendUser;
 
-public class SendUserCommand : IIncomingCommand
+public class SendUserCommand : BaseCommand
 {
-    [JsonPropertyName("cmd")] public string cmd { get; set; }
-
     [JsonPropertyName("enrollid")] public int EnrollId { get; set; }
 
-    [JsonPropertyName("name")] public string Name { get; set; }
+    [JsonPropertyName("name")] public required string Name { get; set; } = "NA";
 
     [JsonPropertyName("backupnum")] public int BackupNum { get; set; }
 
@@ -32,4 +29,25 @@ public class SendUserCommand : IIncomingCommand
         var response = JsonConvert.SerializeObject(new SendUserResponse(true));
         return response;
     }
+}
+
+public class SendUserResponse : BaseResponse
+{
+    [SetsRequiredMembers]
+    public SendUserResponse(bool result)
+    {
+        Command = "senduser";
+        Result = result;
+        CloudTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+    }
+
+    [JsonPropertyName("result")] public bool Result { get; set; }
+
+    [JsonPropertyName("cloudtime")] public string CloudTime { get; set; }
+}
+
+[method: SetsRequiredMembers]
+public class SendUserFailResponse(int reason) : SendUserResponse(false)
+{
+    [JsonPropertyName("reason")] public int Reason { get; set; } = reason;
 }
