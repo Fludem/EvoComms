@@ -34,7 +34,7 @@ namespace EvoComms.Core.Services
                 DateTime dateTime =
                     DateTime.ParseExact(record.Time, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
                 await writer.WriteClocking(record.EmployeeId, dateTime, settings.OutputPath,
-                    deviceSerialNumber ?? record.DeviceSerialNumber ?? "NA");
+                    deviceSerialNumber ?? record.DeviceSerial ?? "NA");
             }
 
             return processedClockings;
@@ -60,7 +60,7 @@ namespace EvoComms.Core.Services
 
         private async Task<Clocking> AddClockingToDb(Record record)
         {
-            ClockingMachine clockingMachine = await GetClockingMachine(record.DeviceSerialNumber ?? "Unknown");
+            ClockingMachine clockingMachine = await GetClockingMachine(record.DeviceSerial ?? "Unknown");
             Employee employee = await GetEmployee(record);
             Clocking clocking = new()
             {
