@@ -30,15 +30,6 @@
         <OutputPath>bin\x86\Release\</OutputPath>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="Mina.NET">
-            <HintPath>..\Mina.NET.dll</HintPath>
-        </Reference>
-        <Reference Include="MinaFaceReaderCodec">
-            <HintPath>..\MinaFaceReaderCodec.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Anviz.SDK" Version="2.0.17"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
             <PrivateAssets>all</PrivateAssets>
@@ -50,9 +41,6 @@
         <PackageReference Include="NLog" Version="5.3.4"/>
         <PackageReference Include="NLog.Database" Version="5.3.4"/>
         <PackageReference Include="NLog.Extensions.Logging" Version="5.3.14"/>
-        <PackageReference Include="SuperSocket" Version="2.0.0-beta.27"/>
-        <PackageReference Include="SuperSocket.WebSocket" Version="2.0.0-beta.27"/>
-        <PackageReference Include="SuperSocket.WebSocket.Server" Version="2.0.0-beta.27"/>
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1"/>
         <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.1"/>
         <PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.1"/>
