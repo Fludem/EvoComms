@@ -64,8 +64,11 @@
     </ItemGroup>
 
     <Target Name="CopyPrelineAssets" BeforeTargets="Build">
-        <Copy SourceFiles="$(ProjectDir)node_modules/preline/dist/preline.js"
-              DestinationFolder="$(ProjectDir)wwwroot/assets/vendor/preline/dist"/>
+        <MakeDir Directories="$(ProjectDir)wwwroot/assets/vendor/preline/dist" Condition="!Exists('$(ProjectDir)wwwroot/assets/vendor/preline/dist')"/>
+        <Copy SourceFiles="@(PrelineDistFiles)"
+              DestinationFolder="$(ProjectDir)wwwroot/assets/vendor/preline/dist">
+            <Output TaskParameter="CopiedFiles" ItemName="CopiedPrelineFiles"/>
+        </Copy>
     </Target>
 
 
@@ -89,8 +92,8 @@
         <EmbeddedResource Include="wwwroot\assets\css\blazor.css"/>
         <Content Remove="wwwroot\assets\css\fonts.css"/>
         <EmbeddedResource Include="wwwroot\assets\css\fonts.css"/>
-        <Content Remove="wwwroot\assets\vendor\preline\dist\preline.js" />
-        <EmbeddedResource Include="wwwroot\assets\vendor\preline\dist\preline.js" />
+        <Content Remove="wwwroot\assets\vendor\preline\dist\preline.js"/>
+        <EmbeddedResource Include="wwwroot\assets\vendor\preline\dist\preline.js"/>
     </ItemGroup>
     <PropertyGroup>
         <ExcludeFilesFromBuildOutput>true</ExcludeFilesFromBuildOutput>
