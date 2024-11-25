@@ -5,7 +5,7 @@ using EvoComms.Core.Database;
 using EvoComms.Core.Services.Extensions;
 using EvoComms.Devices.HanvonVF;
 using EvoComms.Devices.HanvonVF.BackgroundServices;
-using EvoComms.Devices.Timy;
+using EvoComms.Devices.Timy.ServiceExtensions;
 using EvoComms.Devices.ZKTeco.Http.Controllers;
 using EvoComms.Devices.ZKTeco.Services;
 using EvoComms.Logging.Services;
