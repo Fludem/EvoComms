@@ -2,7 +2,7 @@
 
 namespace EvoComms.Devices.Timy.Messages.Incoming.Responses;
 
-public class BaseIncomingResponse : BaseResponse
+public class BaseServerIncomingResponse : BaseServerResponse
 {
     [JsonPropertyName("sn")] public required string SerialNumber { get; set; }
 }

@@ -2,11 +2,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
-namespace EvoComms.Devices.Timy.Messages.Incoming.Commands.SendUser;
+namespace EvoComms.Devices.Timy.Messages.Incoming.Requests;
 
-public class SendUserCommand : BaseCommand
+public class SendUser : BaseDeviceRequest
 {
-    [JsonPropertyName("enrollid")] public int EnrollId { get; set; }
+    [JsonPropertyName("enrollid")] public int EmployeeId { get; set; }
 
     [JsonPropertyName("name")] public required string Name { get; set; } = "NA";
 
@@ -31,7 +31,7 @@ public class SendUserCommand : BaseCommand
     }
 }
 
-public class SendUserResponse : BaseResponse
+public class SendUserResponse : BaseServerResponse
 {
     [SetsRequiredMembers]
     public SendUserResponse(bool result)
