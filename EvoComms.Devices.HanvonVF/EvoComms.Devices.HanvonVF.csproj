@@ -26,10 +26,10 @@
 
     <ItemGroup>
         <Reference Include="Mina.NET">
-            <HintPath>..\Mina.NET.dll</HintPath>
+            <HintPath>..\dll\Mina.NET.dll</HintPath>
         </Reference>
         <Reference Include="MinaFaceReaderCodec">
-            <HintPath>..\MinaFaceReaderCodec.dll</HintPath>
+            <HintPath>..\dll\MinaFaceReaderCodec.dll</HintPath>
         </Reference>
     </ItemGroup>
 
