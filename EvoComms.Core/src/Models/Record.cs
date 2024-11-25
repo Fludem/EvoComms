@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-using Com.FirstSolver.Splash;
-
 using NLog;
 
 namespace EvoComms.Core.Models
