@@ -44,7 +44,6 @@
     <ItemGroup>
         <PackageReference Include="Blazor.ContextMenu" Version="2.1.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="8.0.10"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
