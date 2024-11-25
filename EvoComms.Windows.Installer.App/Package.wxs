@@ -1,7 +1,7 @@
 ﻿<Wix xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util"
      xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
      xmlns="http://wixtoolset.org/schemas/v4/wxs">
-    <Package Name="EvoComms" Manufacturer="Clocking Systems" Version="0.9.0.0"
+    <Package Name="EvoComms" Manufacturer="Clocking Systems" Version="0.11.0.0"
              UpgradeCode="D55E922A-8235-44F1-8B65-C5B91C5DFA77">
         <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)"/>
         <MediaTemplate EmbedCab="yes"/>
@@ -63,7 +63,7 @@
                   Source="$(var.PublishedOutputPath)Data\EvoComms.sqlite"
                   KeyPath="yes"/>
         </Component>
-        
+
         <CustomAction Id="InstallHttpsCert"
                       FileRef="EvoCommsServiceEXE"
                       ExeCommand="--install-cert"
