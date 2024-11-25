@@ -6,7 +6,7 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AssemblyTitle>EvoComms.Core</AssemblyTitle>
         <Product>EvoComms.Core</Product>
-        <Copyright>Copyright © 2023</Copyright>
+        <Copyright>Copyright © 2024-2025</Copyright>
         <AssemblyVersion>0.11.0.0</AssemblyVersion>
         <PlatformTarget>x64</PlatformTarget>
         <BaseOutputPath>C:\Users\m40a3\source\Build\EvoComms</BaseOutputPath>
