@@ -5,13 +5,13 @@ using SuperSocket.WebSocket.Server;
 
 namespace EvoComms.Devices.Timy.Messages.Incoming;
 
-public abstract class BaseMessageHandler : IMessageHandler
+public abstract class BaseITimyMessageHandler : ITimyMessageHandler
 {
     protected readonly ILogger _logger;
     protected readonly TimySettingsProvider _settingsProvider;
     protected readonly RecordService RecordService;
 
-    protected BaseMessageHandler(
+    protected BaseITimyMessageHandler(
         ILogger logger,
         RecordService recordService,
         TimySettingsProvider timySettingsManager)
