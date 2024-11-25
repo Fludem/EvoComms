@@ -22,7 +22,7 @@ namespace EvoComms.Core.Filesystem.Writers.InfoTime
             {
                 if (clocking.ClockingMachine.SerialNumber != null)
                 {
-                    string terminalFolder = await GetTerminalFolder("C:/temp", clocking.ClockingMachine.SerialNumber);
+                    string terminalFolder = GetTerminalFolder("C:/temp", clocking.ClockingMachine.SerialNumber);
                     string filepath = Path.Combine(terminalFolder, $"A300_Clockings_{nowFormatted}.csv");
                     logger.LogInformation(
                         $"Writing Clocking File for {clocking.ClockingMachine.SerialNumber} to: {filepath}");
@@ -42,9 +42,8 @@ namespace EvoComms.Core.Filesystem.Writers.InfoTime
         {
             logger.LogInformation("Infotime Writer WriteClocking Called.");
             string nowFormatted = DateTime.Now.ToString("dd_MM_yy_HHmmss");
-            string outputPath = Path.Combine(filepath, $"A300_Clockings_{nowFormatted}.csv");
-            string terminalFolder = await GetTerminalFolder(serialNumber, filepath);
-            outputPath = Path.Combine(terminalFolder, $"A300_Clockings_{nowFormatted}.csv");
+            string terminalFolder = GetTerminalFolder(serialNumber, filepath);
+            string outputPath = Path.Combine(terminalFolder, $"A300_Clockings_{nowFormatted}.csv");
             logger.LogInformation($"Writing Clocking File for {serialNumber} to: {filepath}");
             await WriteToFile(outputPath, employeeId, clockingTime);
         }
@@ -54,7 +53,7 @@ namespace EvoComms.Core.Filesystem.Writers.InfoTime
             try
             {
                 await using StreamWriter writer = new(filepath, true);
-                string clockingFileEntryString = await ConvertClockingToFileEntry(clocking);
+                string clockingFileEntryString = ConvertClockingToFileEntry(clocking);
                 await writer.WriteAsync(clockingFileEntryString);
             }
             catch (Exception ex)
@@ -70,7 +69,7 @@ namespace EvoComms.Core.Filesystem.Writers.InfoTime
             try
             {
                 await using StreamWriter writer = new(filepath, true);
-                string clockingFileEntryString = await MakeFileLine(employeeId, clockingTime);
+                string clockingFileEntryString = MakeFileLine(employeeId, clockingTime);
                 await writer.WriteAsync(clockingFileEntryString);
             }
             catch (Exception ex)
@@ -80,20 +79,20 @@ namespace EvoComms.Core.Filesystem.Writers.InfoTime
             }
         }
 
-        private async Task<string> ConvertClockingToFileEntry(Clocking clocking)
+        private string ConvertClockingToFileEntry(Clocking clocking)
         {
             string infoTimeDateFormat = clocking.ClockedAt.ToString("dd/MM/yyyy,HH:mm:ss");
             logger.LogInformation("Created Entry: C,," + clocking.Employee.ClockingId + ",," + infoTimeDateFormat);
             return "C,," + clocking.Employee.ClockingId + ",," + infoTimeDateFormat + Environment.NewLine;
         }
 
-        private async Task<string> MakeFileLine(int employeeId, DateTime clockTime)
+        private string MakeFileLine(int employeeId, DateTime clockTime)
         {
             string infoTimeDateFormat = clockTime.ToString("dd/MM/yyyy,HH:mm:ss");
             return "C,," + employeeId + ",," + infoTimeDateFormat + Environment.NewLine;
         }
 
-        private async Task<string> GetTerminalFolder(string serialNumber, string filepath)
+        private string GetTerminalFolder(string serialNumber, string filepath)
         {
             string terminalFolder = Path.Combine(filepath, serialNumber);
             if (serialNumber != _recentSerial && !Directory.Exists(terminalFolder))
